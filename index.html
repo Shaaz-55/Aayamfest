@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aayam | NST X Svyasa Techfest</title>
+    <meta name="description" content="NST X Svyasa presents Aayam - The Ultimate Techfest Experience">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Modern Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+        <p>INITIALIZING SEQUENCE...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="reflect-nav">
+        <div class="nav-left">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="magenta" stroke-width="2" stroke-dasharray="2 4" />
+                    <circle cx="12" cy="12" r="6" fill="magenta" />
+                </svg>
+            </div>
+            <span class="logo-text">Aayam</span>
+        </div>
+        <div class="nav-center">
+            <a href="#events">Events</a>
+            <a href="#schedule">Schedule</a>
+            <a href="#sponsors">Sponsors</a>
+            <a href="#about">About</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <div class="nav-right">
+            <a href="#login" class="nav-login">Login</a>
+            <a href="#register" class="nav-cta">Register Now</a>
+        </div>
+    </nav>
+
+    <!-- Main Hero -->
+    <header class="reflect-hero">
+        <div class="hero-top">
+            <div class="badge-pill">
+                <span class="sparkle">✨</span> Step into the Next Dimension
+            </div>
+            <h1 class="hero-title">Experience the Ultimate Techfest</h1>
+            <p class="hero-subtitle">Never miss a competition, workshop, or connection.</p>
+        </div>
+
+        <div class="hero-canvas-container">
+            <canvas id="hero-canvas"></canvas>
+            <div class="canvas-glow"></div>
+        </div>
+
+        <!-- Dashboard UI Mockup overlapping canvas -->
+        <div class="hero-dashboard-wrapper">
+            <div class="hero-dashboard">
+                <div class="dash-sidebar">
+                    <div class="dash-search">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" placeholder="Search events..." disabled>
+                        <div class="shortcut">⌘K</div>
+                    </div>
+                    <div class="dash-menu">
+                        <div class="dash-menu-item active">
+                            <span class="icon">✨</span> Daily events
+                        </div>
+                        <div class="dash-menu-item">
+                            <span class="icon">📄</span> All events
+                        </div>
+                        <div class="dash-menu-item">
+                            <span class="icon">✓</span> Leaderboard
+                        </div>
+                        <div class="dash-menu-item">
+                            <span class="icon">🗺️</span> Map
+                        </div>
+                    </div>
+                    <div class="dash-menu-bottom">
+                        <div class="dash-menu-item muted">Pinned events</div>
+                        <div class="dash-menu-item muted">How to register</div>
+                    </div>
+                </div>
+
+                <div class="dash-main">
+                    <div class="dash-header">
+                        <h2 id="countdown-display">T-Minus 38d 22h 18m 00s</h2>
+                    </div>
+                    <div class="dash-content">
+                        <ul class="tree-list">
+                            <li>Today I started building for <span class="highlight">Aayam!</span></li>
+                            <li>
+                                What is Aayam?
+                                <ul>
+                                    <li>A techfest designed to mirror the future.</li>
+                                    <li>Our minds remember things through associations. Aayam mimics this by bringing
+                                        together tech, art, and innovation (<a href="#">read more here</a>).</li>
+                                    <li>Over time, this gives you superhuman networking skills. Aayam becomes an
+                                        extension of your career.</li>
+                                </ul>
+                            </li>
+                            <li>What should I expect?</li>
+                        </ul>
+                    </div>
+                    <!-- Play button overlay -->
+                    <div class="play-button-overlay">
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24" fill="white">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-right">
+                    <div class="calendar-header">
+                        <span>April 2026</span>
+                        <div class="cal-nav">
+                            <span>
+                                << /span>
+                                    <span>📅</span>
+                                    <span>></span>
+                        </div>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="day-name">Mo</div>
+                        <div class="day-name">Tu</div>
+                        <div class="day-name">We</div>
+                        <div class="day-name">Th</div>
+                        <div class="day-name">Fr</div>
+                        <div class="day-name">Sa</div>
+                        <div class="day-name">Su</div>
+                        <div class="day muted">27</div>
+                        <div class="day muted">28</div>
+                        <div class="day muted">29</div>
+                        <div class="day muted">30</div>
+                        <div class="day muted">31</div>
+                        <div class="day">1</div>
+                        <div class="day active">2</div>
+                        <div class="day">3</div>
+                        <div class="day">4</div>
+                        <div class="day">5</div>
+                        <div class="day">6</div>
+                        <div class="day">7</div>
+                        <div class="day">8</div>
+                        <div class="day">9</div>
+                        <div class="day">10</div>
+                        <div class="day">11</div>
+                        <div class="day">12</div>
+                        <div class="day">13</div>
+                        <div class="day">14</div>
+                        <div class="day">15</div>
+                        <div class="day">16</div>
+                        <div class="day">17</div>
+                        <div class="day">18</div>
+                        <div class="day">19</div>
+                        <div class="day">20</div>
+                        <div class="day">21</div>
+                        <div class="day">22</div>
+                        <div class="day">23</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- UVP Section -->
+    <section class="section uvp-section">
+        <div class="section-container">
+            <h2 class="section-title">The Ultimate Technical Convergence</h2>
+            <p class="section-desc">Aayam brings together the brightest minds across the country to compete,
+                collaborate, and create the future. Don't just witness innovation—be a part of it.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Launch Your Ideas</h3>
+                    <p>Participate in our 24-hour hackathon and build solutions that matter.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Robotics Arena</h3>
+                    <p>Design, build, and battle in the ultimate test of engineering and strategy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI & CP</h3>
+                    <p>Push your algorithmic thinking to the absolute limit in intense CP contests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="section social-proof">
+        <div class="section-container">
+            <p class="proof-label">TRUSTED BY INDUSTRY LEADERS</p>
+            <div class="logo-cloud">
+                <div class="placeholder-logo">Google</div>
+                <div class="placeholder-logo">Microsoft</div>
+                <div class="placeholder-logo">Amazon</div>
+                <div class="placeholder-logo">Meta</div>
+                <div class="placeholder-logo">Netflix</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="section pricing-section">
+        <div class="section-container">
+            <h2 class="section-title">Get Your Pass</h2>
+            <p class="section-desc">Choose the tier that fits your ambition.</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="tier">Visitor Pass</div>
+                    <div class="price">Free</div>
+                    <ul class="benefits">
+                        <li>Access to all open arenas</li>
+                        <li>Guest lectures</li>
+                        <li>Networking events</li>
+                    </ul>
+                    <a href="#" class="pricing-cta variant">Claim Pass</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="tier">Pro Competitor</div>
+                    <div class="price">₹499</div>
+                    <ul class="benefits">
+                        <li>All Visitor benefits</li>
+                        <li>Entry to 3 premium competitions</li>
+                        <li>Exclusive Aayam Merch</li>
+                        <li>Priority seating</li>
+                    </ul>
+                    <a href="#" class="pricing-cta">Register Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA & Footer -->
+    <footer class="footer">
+        <div class="footer-cta">
+            <div class="logo-icon large">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="magenta" stroke-width="2" stroke-dasharray="2 4" />
+                    <circle cx="12" cy="12" r="6" fill="magenta" />
+                </svg>
+            </div>
+            <h2>Ready to step beyond?</h2>
+            <p>Join 3000+ innovators at the most anticipated techfest of the year.</p>
+            <a href="#register" class="nav-cta large">Get Started</a>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-col">
+                <strong>Aayam</strong>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-col">
+                <strong>Legal</strong>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-col">
+                <strong>Social</strong>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
