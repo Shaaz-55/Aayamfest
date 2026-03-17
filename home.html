@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aayam | NST X Svyasa Techfest</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Global Space Background -->
+    <div id="global-space-bg"></div>
+
+    <!-- Preloader -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+        <p>INITIALIZING SEQUENCE...</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="reflect-nav" id="main-nav">
+        <div class="nav-left">
+            <span class="logo-text technex-logo">AAYAM '26</span>
+        </div>
+        <div class="nav-center">
+            <a href="index.html" class="active-nav">Home</a>
+            <a href="events.html">Events</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="sponsors.html">Sponsors</a>
+            <a href="team.html">Team</a>
+            <a href="ambassador.html">Ambassador</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <a href="#register" class="nav-cta filled">REGISTER</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="sponsors.html">Sponsors</a>
+        <a href="team.html">Team</a>
+        <a href="ambassador.html">Ambassador</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main Hero -->
+    <header class="reflect-hero">
+
+        <div class="hero-canvas-container">
+            <canvas id="hero-canvas"></canvas>
+            <div class="canvas-glow"></div>
+        </div>
+
+        <div class="hero-technex-wrapper" id="home">
+            <h1 class="hero-main-title">AAYAM</h1>
+
+            <div class="singularity-timer-container">
+                <div class="time-block">
+                    <div class="time-box">
+                        <span class="number" id="t-days">37</span>
+                        <div class="box-line"></div>
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                    </div>
+                    <span class="label">DAYS</span>
+                </div>
+
+                <div class="time-block">
+                    <div class="time-box">
+                        <span class="number" id="t-hours">00</span>
+                        <div class="box-line"></div>
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                    </div>
+                    <span class="label">HOURS</span>
+                </div>
+
+                <div class="time-block">
+                    <div class="time-box">
+                        <span class="number" id="t-mins">00</span>
+                        <div class="box-line"></div>
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                    </div>
+                    <span class="label">MINUTES</span>
+                </div>
+
+                <div class="time-block">
+                    <div class="time-box">
+                        <span class="number" id="t-secs">00</span>
+                        <div class="box-line"></div>
+                        <div class="corner corner-tl"></div>
+                        <div class="corner corner-tr"></div>
+                        <div class="corner corner-bl"></div>
+                        <div class="corner corner-br"></div>
+                    </div>
+                    <span class="label">SECONDS</span>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- About Preview -->
+    <section class="section tech-section fade-in-section">
+        <div class="about-container">
+            <div class="about-left staggered-item">
+                <div class="section-tag">[ ABOUT THE FEST ]</div>
+                <h2 class="section-heading">NST's Premier Tech Convergence</h2>
+                <div class="about-text">
+                    <p>AAYAM is the annual techno-management festival of Newton School of Technology. It's a platform
+                        where the brightest minds converge to compete, collaborate, and build the future.</p>
+                </div>
+            </div>
+            <div class="about-right staggered-item">
+                <div class="info-card">
+                    <div class="info-item">
+                        <span class="info-icon">🔥</span>
+                        <div><strong>12 Featured Events</strong><span>Spanning AI, Robotics & Web3</span></div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🏆</span>
+                        <div><strong>₹2,00,000+ Prize Pool</strong><span>Total Rewards</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Events -->
+    <section class="section tech-section fade-in-section">
+        <div class="events-header staggered-item">
+            <div class="section-tag">[ HIGHLIGHTS ]</div>
+            <h2 class="section-heading">FEATURED EVENTS</h2>
+        </div>
+
+        <div class="featured-events-row">
+            <div class="event-card staggered-item">
+                <h3 class="event-title">Hackathon</h3>
+                <div class="event-prize">₹50,000</div>
+                <p class="event-tagline">24-hour innovation marathon</p>
+                <a href="events.html" class="event-link">LEARN MORE &rarr;</a>
+            </div>
+            <div class="event-card staggered-item">
+                <h3 class="event-title">Robotics Arena</h3>
+                <div class="event-prize">₹40,000</div>
+                <p class="event-tagline">Build, fight, dominate</p>
+                <a href="events.html" class="event-link">LEARN MORE &rarr;</a>
+            </div>
+            <div class="event-card staggered-item">
+                <h3 class="event-title">CP Challenge</h3>
+                <div class="event-prize">₹30,000</div>
+                <p class="event-tagline">Algorithmic limits tested</p>
+                <a href="events.html" class="event-link">LEARN MORE &rarr;</a>
+            </div>
+            <div class="event-card staggered-item">
+                <h3 class="event-title">AI Battle</h3>
+                <div class="event-prize">₹35,000</div>
+                <p class="event-tagline">Human vs Machine</p>
+                <a href="events.html" class="event-link">LEARN MORE &rarr;</a>
+            </div>
+        </div>
+        <div class="center-btn-wrapper staggered-item">
+            <a href="events.html" class="btn-technex outline wide">VIEW ALL 12 EVENTS</a>
+        </div>
+    </section>
+
+    <!-- Sponsors Preview -->
+    <section class="section tech-section fade-in-section" style="padding: 4rem 0;">
+        <div class="events-header staggered-item">
+            <div class="section-tag">[ PARTNERS ]</div>
+            <h2 class="section-heading">SPONSORS PREVIEW</h2>
+        </div>
+        <div class="sponsor-ticker">
+            <div class="ticker-track">
+                <span>GOOGLE</span><span>AMAZON</span><span>INFOSYS</span><span>WIPRO</span><span>TCS</span><span>HCL</span><span>CAPGEMINI</span>
+                <span>GOOGLE</span><span>AMAZON</span><span>INFOSYS</span><span>WIPRO</span><span>TCS</span><span>HCL</span><span>CAPGEMINI</span>
+            </div>
+        </div>
+        <div class="center-btn-wrapper staggered-item" style="margin-top:2rem">
+            <a href="sponsors.html" class="btn-technex outline wide" style="max-width: 250px;">ALL SPONSORS</a>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner-section fade-in-section">
+        <div class="cta-banner-content staggered-item">
+            <h2 class="cta-banner-heading">READY TO STEP BEYOND?</h2>
+            <p class="cta-banner-sub">Join 3000+ innovators. Compete. Build. Win.</p>
+            <div class="hero-buttons">
+                <a href="#register" class="btn-technex primary">REGISTER NOW</a>
+                <a href="events.html" class="btn-technex outline cta-dark">EXPLORE EVENTS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="tech-footer">
+        <div class="footer-grid">
+            <div class="footer-col brand">
+                <h3 class="f-logo">AAYAM '26</h3>
+                <p class="f-tag">Step Beyond The Known</p>
+                <p class="f-host">Techfest by Newton School of Technology</p>
+            </div>
+            <div class="footer-col links">
+                <h4>QUICK LINKS</h4>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="events.html">Events</a>
+                <a href="schedule.html">Schedule</a>
+                <a href="workshops.html">Workshops</a>
+            </div>
+            <div class="footer-col links">
+                <h4>EVENTS</h4>
+                <a href="events.html">Coding</a>
+                <a href="events.html">Robotics</a>
+                <a href="events.html">AI/ML</a>
+            </div>
+            <div class="footer-col contact">
+                <h4>CONTACT</h4>
+                <a href="mailto:aayam.fest@newtonschool.co">aayam.fest@newtonschool.co</a>
+                <p>+91 9983241206</p>
+                <p class="address">NST S-VYASA University, Bengaluru</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="copy">&copy; 2026 AAYAM &middot; NST</div>
+            <div class="legals"><a href="#">Privacy</a></div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

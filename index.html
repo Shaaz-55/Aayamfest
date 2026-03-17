@@ -2,287 +2,512 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aayam | NST X Svyasa Techfest</title>
-    <meta name="description" content="NST X Svyasa presents Aayam - The Ultimate Techfest Experience">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAYAM '26 — Enter Another Realm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000008;
+      width: 100vw;
+      height: 100vh;
+    }
 
-    <!-- Modern Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap"
-        rel="stylesheet">
+    #space-bg {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, #0a0a1a 0%, #000005 70%);
+      z-index: 0;
+    }
+
+    #button-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    #crt-button {
+      position: relative;
+      padding: 22px 52px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 1px solid #39ff14;
+      color: #39ff14;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(14px, 2vw, 20px);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      cursor: pointer;
+      overflow: hidden;
+      transform-origin: center center;
+      border-radius: 3px;
+      box-shadow:
+        0 0 8px rgba(57, 255, 20, 0.5),
+        0 0 30px rgba(57, 255, 20, 0.15),
+        inset 0 0 20px rgba(57, 255, 20, 0.04);
+      animation: crt-flicker 6s infinite;
+      user-select: none;
+    }
+
+    #crt-button:hover {
+      box-shadow:
+        0 0 20px rgba(57, 255, 20, 0.9),
+        0 0 60px rgba(57, 255, 20, 0.3),
+        inset 0 0 30px rgba(57, 255, 20, 0.08);
+    }
+
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px,
+          rgba(0, 0, 0, 0.12) 2px, rgba(0, 0, 0, 0.12) 4px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .btn-corner {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: #39ff14;
+      border-style: solid;
+    }
+
+    .btn-corner--tl {
+      top: -2px;
+      left: -2px;
+      border-width: 2px 0 0 2px;
+    }
+
+    .btn-corner--tr {
+      top: -2px;
+      right: -2px;
+      border-width: 2px 2px 0 0;
+    }
+
+    .btn-corner--bl {
+      bottom: -2px;
+      left: -2px;
+      border-width: 0 0 2px 2px;
+    }
+
+    .btn-corner--br {
+      bottom: -2px;
+      right: -2px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .glitch-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glitch-text::before {
+      color: #ff0040;
+      animation: glitch-1 4s infinite;
+      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    }
+
+    .glitch-text::after {
+      color: #00ffff;
+      animation: glitch-2 4s infinite;
+      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    }
+
+    @keyframes glitch-1 {
+
+      0%,
+      88%,
+      100% {
+        transform: translate(-2px, 0);
+        opacity: 0;
+      }
+
+      89% {
+        transform: translate(-5px, 1px);
+        opacity: 0.75;
+      }
+
+      91% {
+        transform: translate(3px, -1px);
+        opacity: 0.75;
+      }
+
+      93% {
+        transform: translate(-2px, 0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes glitch-2 {
+
+      0%,
+      88%,
+      100% {
+        transform: translate(2px, 0);
+        opacity: 0;
+      }
+
+      90% {
+        transform: translate(5px, -1px);
+        opacity: 0.75;
+      }
+
+      92% {
+        transform: translate(-3px, 1px);
+        opacity: 0.75;
+      }
+
+      94% {
+        transform: translate(2px, 0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes crt-flicker {
+
+      0%,
+      96%,
+      100% {
+        opacity: 1;
+      }
+
+      96.5% {
+        opacity: 0.82;
+      }
+
+      97% {
+        opacity: 1;
+      }
+
+      97.8% {
+        opacity: 0.88;
+      }
+
+      98% {
+        opacity: 1;
+      }
+    }
+
+    #btn-subtext {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: rgba(57, 255, 20, 0.4);
+      letter-spacing: 0.3em;
+      animation: blink 1.4s step-end infinite;
+      margin: 0;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    #flash-overlay {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      opacity: 0;
+      z-index: 200;
+      pointer-events: none;
+    }
+
+    #watermark {
+      position: fixed;
+      top: 24px;
+      left: 36px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      color: rgba(57, 255, 20, 0.3);
+      letter-spacing: 0.2em;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    #date-badge {
+      position: fixed;
+      top: 24px;
+      right: 36px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: rgba(57, 255, 20, 0.25);
+      letter-spacing: 0.15em;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    #tagline {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      z-index: 20;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      #crt-button {
+        padding: 18px 28px;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+      }
+
+      #watermark,
+      #date-badge {
+        font-size: 10px;
+      }
+
+      #tagline {
+        font-size: 9px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Preloader -->
-    <div id="loader" class="loader">
-        <div class="spinner"></div>
-        <p>INITIALIZING SEQUENCE...</p>
+
+  <div id="space-bg"></div>
+
+  <div id="watermark">AAYAM '26</div>
+  <div id="date-badge">MARCH 2026</div>
+
+  <div id="button-container">
+    <div id="crt-button" onclick="startSequence()">
+      <div class="scanlines"></div>
+      <div class="glitch-text" data-text="ENTER ANOTHER REALM">ENTER ANOTHER REALM</div>
+      <div class="btn-corner btn-corner--tl"></div>
+      <div class="btn-corner btn-corner--tr"></div>
+      <div class="btn-corner btn-corner--bl"></div>
+      <div class="btn-corner btn-corner--br"></div>
     </div>
+    <p id="btn-subtext">[ CLICK TO PROCEED ]</p>
+  </div>
 
-    <!-- Navigation -->
-    <nav class="reflect-nav">
-        <div class="nav-left">
-            <div class="logo-icon">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="magenta" stroke-width="2" stroke-dasharray="2 4" />
-                    <circle cx="12" cy="12" r="6" fill="magenta" />
-                </svg>
-            </div>
-            <span class="logo-text">Aayam</span>
-        </div>
-        <div class="nav-center">
-            <a href="#events">Events</a>
-            <a href="#schedule">Schedule</a>
-            <a href="#sponsors">Sponsors</a>
-            <a href="#about">About</a>
-            <a href="#faq">FAQ</a>
-        </div>
-        <div class="nav-right">
-            <a href="#login" class="nav-login">Login</a>
-            <a href="#register" class="nav-cta">Register Now</a>
-        </div>
-    </nav>
+  <div id="flash-overlay"></div>
+  <div id="tagline">National Techfest · Beyond the Event Horizon</div>
 
-    <!-- Main Hero -->
-    <header class="reflect-hero">
-        <div class="hero-top">
-            <div class="badge-pill">
-                <span class="sparkle">✨</span> Step into the Next Dimension
-            </div>
-            <h1 class="hero-title">Experience the Ultimate Techfest</h1>
-            <p class="hero-subtitle">Never miss a competition, workshop, or connection.</p>
-        </div>
+  <script>
+    // ── STAR DATA ──────────────────────────────────────────────────────────────
+    const STAR_COUNT = 4000;
+    const starPositions = [];
+    const starPrevPositions = [];
+    const starColors = [];
 
-        <div class="hero-canvas-container">
-            <canvas id="hero-canvas"></canvas>
-            <div class="canvas-glow"></div>
-        </div>
+    function initStar(i) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 20 + Math.sqrt(Math.random()) * 400;
+      const z = -(Math.random() * 2000 + 100);
 
-        <!-- Dashboard UI Mockup overlapping canvas -->
-        <div class="hero-dashboard-wrapper">
-            <div class="hero-dashboard">
-                <div class="dash-sidebar">
-                    <div class="dash-search">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        <input type="text" placeholder="Search events..." disabled>
-                        <div class="shortcut">⌘K</div>
-                    </div>
-                    <div class="dash-menu">
-                        <div class="dash-menu-item active">
-                            <span class="icon">✨</span> Daily events
-                        </div>
-                        <div class="dash-menu-item">
-                            <span class="icon">📄</span> All events
-                        </div>
-                        <div class="dash-menu-item">
-                            <span class="icon">✓</span> Leaderboard
-                        </div>
-                        <div class="dash-menu-item">
-                            <span class="icon">🗺️</span> Map
-                        </div>
-                    </div>
-                    <div class="dash-menu-bottom">
-                        <div class="dash-menu-item muted">Pinned events</div>
-                        <div class="dash-menu-item muted">How to register</div>
-                    </div>
-                </div>
+      starPositions[i] = [Math.cos(angle) * radius, Math.sin(angle) * radius, z];
+      starPrevPositions[i] = [...starPositions[i]];
 
-                <div class="dash-main">
-                    <div class="dash-header">
-                        <h2 id="countdown-display">T-Minus 38d 22h 18m 00s</h2>
-                    </div>
-                    <div class="dash-content">
-                        <ul class="tree-list">
-                            <li>Today I started building for <span class="highlight">Aayam!</span></li>
-                            <li>
-                                What is Aayam?
-                                <ul>
-                                    <li>A techfest designed to mirror the future.</li>
-                                    <li>Our minds remember things through associations. Aayam mimics this by bringing
-                                        together tech, art, and innovation (<a href="#">read more here</a>).</li>
-                                    <li>Over time, this gives you superhuman networking skills. Aayam becomes an
-                                        extension of your career.</li>
-                                </ul>
-                            </li>
-                            <li>What should I expect?</li>
-                        </ul>
-                    </div>
-                    <!-- Play button overlay -->
-                    <div class="play-button-overlay">
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24" fill="white">
-                                <path d="M8 5v14l11-7z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+      const roll = Math.random();
+      starColors[i] = roll > 0.85 ? [0.7, 0.8, 1.0]
+        : roll > 0.70 ? [1.0, 0.95, 0.8]
+          : [1.0, 1.0, 1.0];
+    }
 
-                <div class="dash-right">
-                    <div class="calendar-header">
-                        <span>April 2026</span>
-                        <div class="cal-nav">
-                            <span>
-                                << /span>
-                                    <span>📅</span>
-                                    <span>></span>
-                        </div>
-                    </div>
-                    <div class="calendar-grid">
-                        <div class="day-name">Mo</div>
-                        <div class="day-name">Tu</div>
-                        <div class="day-name">We</div>
-                        <div class="day-name">Th</div>
-                        <div class="day-name">Fr</div>
-                        <div class="day-name">Sa</div>
-                        <div class="day-name">Su</div>
-                        <div class="day muted">27</div>
-                        <div class="day muted">28</div>
-                        <div class="day muted">29</div>
-                        <div class="day muted">30</div>
-                        <div class="day muted">31</div>
-                        <div class="day">1</div>
-                        <div class="day active">2</div>
-                        <div class="day">3</div>
-                        <div class="day">4</div>
-                        <div class="day">5</div>
-                        <div class="day">6</div>
-                        <div class="day">7</div>
-                        <div class="day">8</div>
-                        <div class="day">9</div>
-                        <div class="day">10</div>
-                        <div class="day">11</div>
-                        <div class="day">12</div>
-                        <div class="day">13</div>
-                        <div class="day">14</div>
-                        <div class="day">15</div>
-                        <div class="day">16</div>
-                        <div class="day">17</div>
-                        <div class="day">18</div>
-                        <div class="day">19</div>
-                        <div class="day">20</div>
-                        <div class="day">21</div>
-                        <div class="day">22</div>
-                        <div class="day">23</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    for (let i = 0; i < STAR_COUNT; i++) initStar(i);
 
-    <!-- UVP Section -->
-    <section class="section uvp-section">
-        <div class="section-container">
-            <h2 class="section-title">The Ultimate Technical Convergence</h2>
-            <p class="section-desc">Aayam brings together the brightest minds across the country to compete,
-                collaborate, and create the future. Don't just witness innovation—be a part of it.</p>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3>Launch Your Ideas</h3>
-                    <p>Participate in our 24-hour hackathon and build solutions that matter.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>Robotics Arena</h3>
-                    <p>Design, build, and battle in the ultimate test of engineering and strategy.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>AI & CP</h3>
-                    <p>Push your algorithmic thinking to the absolute limit in intense CP contests.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    // ── 2D STREAK CANVAS ───────────────────────────────────────────────────────
+    const streakCanvas = document.createElement('canvas');
+    streakCanvas.width = window.innerWidth;
+    streakCanvas.height = window.innerHeight;
+    streakCanvas.style.cssText = `
+      position: fixed; inset: 0;
+      width: 100vw; height: 100vh;
+      z-index: 6; opacity: 0;
+      pointer-events: none;
+    `;
+    document.body.appendChild(streakCanvas);
+    const ctx = streakCanvas.getContext('2d');
 
-    <!-- Social Proof Section -->
-    <section class="section social-proof">
-        <div class="section-container">
-            <p class="proof-label">TRUSTED BY INDUSTRY LEADERS</p>
-            <div class="logo-cloud">
-                <div class="placeholder-logo">Google</div>
-                <div class="placeholder-logo">Microsoft</div>
-                <div class="placeholder-logo">Amazon</div>
-                <div class="placeholder-logo">Meta</div>
-                <div class="placeholder-logo">Netflix</div>
-            </div>
-        </div>
-    </section>
+    // ── THREE.JS CAMERA (projection math only — no renderer needed) ───────────
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      1,
+      3000
+    );
+    camera.position.z = 0;
 
-    <!-- Pricing Section -->
-    <section class="section pricing-section">
-        <div class="section-container">
-            <h2 class="section-title">Get Your Pass</h2>
-            <p class="section-desc">Choose the tier that fits your ambition.</p>
+    // FIX 1 — updateMatrixWorld() must be called once after creation so that
+    //          vec3.project(camera) produces correct screen-space coordinates.
+    //          Without this the projection matrix is uninitialised and every
+    //          star maps to the same wrong screen position.
+    camera.updateMatrixWorld();
 
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="tier">Visitor Pass</div>
-                    <div class="price">Free</div>
-                    <ul class="benefits">
-                        <li>Access to all open arenas</li>
-                        <li>Guest lectures</li>
-                        <li>Networking events</li>
-                    </ul>
-                    <a href="#" class="pricing-cta variant">Claim Pass</a>
-                </div>
-                <div class="pricing-card popular">
-                    <div class="tier">Pro Competitor</div>
-                    <div class="price">₹499</div>
-                    <ul class="benefits">
-                        <li>All Visitor benefits</li>
-                        <li>Entry to 3 premium competitions</li>
-                        <li>Exclusive Aayam Merch</li>
-                        <li>Priority seating</li>
-                    </ul>
-                    <a href="#" class="pricing-cta">Register Now</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    const vec3 = new THREE.Vector3();
 
-    <!-- Final CTA & Footer -->
-    <footer class="footer">
-        <div class="footer-cta">
-            <div class="logo-icon large">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="magenta" stroke-width="2" stroke-dasharray="2 4" />
-                    <circle cx="12" cy="12" r="6" fill="magenta" />
-                </svg>
-            </div>
-            <h2>Ready to step beyond?</h2>
-            <p>Join 3000+ innovators at the most anticipated techfest of the year.</p>
-            <a href="#register" class="nav-cta large">Get Started</a>
-        </div>
+    function projectToScreen(x, y, z) {
+      vec3.set(x, y, z);
+      vec3.project(camera);
+      return {
+        x: (vec3.x * 0.5 + 0.5) * window.innerWidth,
+        y: (-vec3.y * 0.5 + 0.5) * window.innerHeight,
+        visible: vec3.z < 1.0
+      };
+    }
 
-        <div class="footer-bottom">
-            <div class="footer-col">
-                <strong>Aayam</strong>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
-            </div>
-            <div class="footer-col">
-                <strong>Legal</strong>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-            <div class="footer-col">
-                <strong>Social</strong>
-                <a href="#">Twitter</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Instagram</a>
-            </div>
-        </div>
-    </footer>
+    // ── DRAW LOOP ──────────────────────────────────────────────────────────────
+    let currentSpeed = 0;
+    let targetSpeed = 0;
+    let tunnelActive = false;
 
-    <script src="script.js"></script>
+    function drawTunnel() {
+      requestAnimationFrame(drawTunnel);
+
+      currentSpeed += (targetSpeed - currentSpeed) * 0.04;
+
+      const trailAlpha = tunnelActive
+        ? Math.max(0.08, 0.35 - (currentSpeed / 80) * 0.27)
+        : 0.4;
+
+      // FIX 2 — was: rgba(0, 0, 8, \${ trailAlpha })   ← broken (no backticks)
+      ctx.fillStyle = `rgba(0, 0, 8, ${trailAlpha})`;
+      ctx.fillRect(0, 0, streakCanvas.width, streakCanvas.height);
+
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const [px, py, pz] = starPositions[i];
+
+        starPrevPositions[i] = [px, py, pz];
+
+        const move = currentSpeed * (1 + (-pz / 2000) * 0.5);
+        starPositions[i][2] = pz + move;
+
+        if (starPositions[i][2] > -5) { initStar(i); continue; }
+
+        const curr = projectToScreen(starPositions[i][0], starPositions[i][1], starPositions[i][2]);
+        const prev = projectToScreen(px, py, pz);
+
+        if (!curr.visible || !prev.visible) continue;
+        if (curr.x < -10 || curr.x > window.innerWidth + 10) continue;
+        if (curr.y < -10 || curr.y > window.innerHeight + 10) continue;
+
+        const depth = Math.abs(starPositions[i][2]) / 2000;
+        const brightness = 1.0 - depth * 0.7;
+        const [r, g, b] = starColors[i];
+        const alpha = Math.min(1.0, brightness + currentSpeed / 60);
+        const lineWidth = Math.max(0.4, (1 - depth) * (0.5 + currentSpeed / 40));
+
+        ctx.beginPath();
+        ctx.moveTo(prev.x, prev.y);
+        ctx.lineTo(curr.x, curr.y);
+        ctx.lineWidth = lineWidth;
+
+        // FIX 3 — was: rgba(${ ... }, ${ ... }, ...)  ← broken (no backticks)
+        ctx.strokeStyle = `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${alpha})`;
+        ctx.stroke();
+      }
+
+      if (tunnelActive && currentSpeed > 5) {
+        const vigIntensity = Math.min(0.85, currentSpeed / 80);
+        const gradient = ctx.createRadialGradient(
+          window.innerWidth / 2, window.innerHeight / 2, window.innerWidth * 0.25,
+          window.innerWidth / 2, window.innerHeight / 2, window.innerWidth * 0.75
+        );
+
+        // FIX 4 — was: rgba(0, 0, 0, 0)         ← a bare function call, not a string
+        gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
+
+        // FIX 5 — was: rgba(0, 0, 0, \${ vigIntensity })  ← escaped $ + no backticks
+        gradient.addColorStop(1, `rgba(0, 0, 0, ${vigIntensity})`);
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      }
+    }
+
+    drawTunnel();
+
+    // ── CLICK HANDLER ──────────────────────────────────────────────────────────
+    let animationStarted = false;
+
+    function startSequence() {
+      if (animationStarted) return;
+      animationStarted = true;
+      tunnelActive = true;
+
+      const tl = gsap.timeline();
+
+      tl
+        .to('#btn-subtext', { opacity: 0, duration: 0.2, ease: 'power2.in' }, 0)
+        .to('.glitch-text', { opacity: 0, duration: 0.25, ease: 'power2.in' }, 0)
+        .to('#crt-button', { scale: 0.85, opacity: 0, duration: 0.4, ease: 'power2.in' }, 0.05)
+        .to('#button-container', { display: 'none', duration: 0 }, 0.5)
+        .to('#watermark', { opacity: 0, duration: 0.4 }, 0)
+        .to('#date-badge', { opacity: 0, duration: 0.4 }, 0)
+        .to('#tagline', { opacity: 0, duration: 0.4 }, 0)
+        .to(streakCanvas, { opacity: 1, duration: 0.4 }, 0.3)
+
+        .to({ speed: 0 }, {
+          speed: 85,
+          duration: 2.0,
+          ease: 'power2.in',
+          onUpdate: function () {
+            targetSpeed = this.targets()[0].speed;
+          }
+        }, 0.4)
+
+        .to('#flash-overlay', { opacity: 1, duration: 0.4, ease: 'power1.in' }, 2.5)
+
+        .call(() => {
+          window.location.href = 'home.html';
+        }, null, 2.9);
+    }
+
+    // ── MOUSE PARALLAX ─────────────────────────────────────────────────────────
+    document.addEventListener('mousemove', (e) => {
+      if (animationStarted) return;
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      gsap.to('#space-bg', { x, y, duration: 1.8, ease: 'power1.out' });
+    });
+
+    // ── RESIZE ─────────────────────────────────────────────────────────────────
+    window.addEventListener('resize', () => {
+      streakCanvas.width = window.innerWidth;
+      streakCanvas.height = window.innerHeight;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      camera.updateMatrixWorld(); // keep projection in sync after resize too
+    });
+  </script>
 </body>
 
 </html>

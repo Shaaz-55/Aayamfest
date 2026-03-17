@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Aayam</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="reflect-nav scrolled" id="main-nav" style="background: rgba(8, 5, 16, 0.9);">
+        <div class="nav-left">
+            <span class="logo-text technex-logo">AAYAM '26</span>
+        </div>
+        <div class="nav-center">
+            <a href="home.html">Home</a>
+            <a href="events.html" class="active-nav" style="color:var(--primary)">Events</a>
+            <a href="schedule.html">Schedule</a>
+            <a href="sponsors.html">Sponsors</a>
+            <a href="team.html">Team</a>
+            <a href="ambassador.html">Ambassador</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <a href="#register" class="nav-cta filled">REGISTER</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1 class="page-title">COMPETITIONS</h1>
+        <p class="page-subtitle">Six Arenas to Prove Your Worth</p>
+    </header>
+
+    <section class="section tech-section fade-in-section">
+        <!-- Categories tabs -->
+        <div class="schedule-tabs staggered-item" style="flex-wrap: wrap;">
+            <button class="tab-btn active" data-target="cat-all">All</button>
+            <button class="tab-btn" data-target="cat-coding">Coding</button>
+            <button class="tab-btn" data-target="cat-roaming">Robotics</button>
+            <button class="tab-btn" data-target="cat-ai">AI/ML</button>
+            <button class="tab-btn" data-target="cat-gaming">Gaming</button>
+            <button class="tab-btn" data-target="cat-hack">Hackathons</button>
+        </div>
+
+        <div class="events-grid" style="margin-top: 3rem;">
+            <!-- Card 1 -->
+            <div class="event-card staggered-item">
+                <div class="section-tag">[ HACKATHON ]</div>
+                <h3 class="event-title">24-Hr Hackathon</h3>
+                <p class="event-tagline">Build scalable software solutions to real-world problems over a sleepless night.</p>
+                <div style="margin: 1.5rem 0; font-size: 0.9rem; color:#ccc;">
+                    <p><strong>Rules:</strong> Original code only.</p>
+                    <p><strong>Team Size:</strong> 2 - 4 Members</p>
+                    <p><strong>Entry Fee:</strong> Free</p>
+                </div>
+                <div class="event-prize">₹50,000</div>
+                <a href="#register" class="btn-technex primary" style="display:block; text-align:center;">REGISTER</a>
+            </div>
+            <!-- Card 2 -->
+            <div class="event-card staggered-item">
+                <div class="section-tag">[ ROBOTICS ]</div>
+                <h3 class="event-title">Robo Wars</h3>
+                <p class="event-tagline">Design a combat robot and battle it out in a reinforced cage.</p>
+                <div style="margin: 1.5rem 0; font-size: 0.9rem; color:#ccc;">
+                    <p><strong>Rules:</strong> Max weight 15kg.</p>
+                    <p><strong>Team Size:</strong> 2 - 5 Members</p>
+                    <p><strong>Entry Fee:</strong> ₹500/Team</p>
+                </div>
+                <div class="event-prize">₹40,000</div>
+                <a href="#register" class="btn-technex primary" style="display:block; text-align:center;">REGISTER</a>
+            </div>
+            <!-- Card 3 -->
+            <div class="event-card staggered-item">
+                <div class="section-tag">[ AI / ML ]</div>
+                <h3 class="event-title">AI Battle</h3>
+                <p class="event-tagline">Train models to beat our hidden datasets in terms of accuracy and speed.</p>
+                <div style="margin: 1.5rem 0; font-size: 0.9rem; color:#ccc;">
+                    <p><strong>Rules:</strong> Pre-trained models allowed constraints apply.</p>
+                    <p><strong>Team Size:</strong> Individual or Duo</p>
+                    <p><strong>Entry Fee:</strong> Free</p>
+                </div>
+                <div class="event-prize">₹35,000</div>
+                <a href="#register" class="btn-technex primary" style="display:block; text-align:center;">REGISTER</a>
+            </div>
+            <!-- Card 4 -->
+            <div class="event-card staggered-item">
+                <div class="section-tag">[ CODING ]</div>
+                <h3 class="event-title">CP Challenge</h3>
+                <p class="event-tagline">Algorithmic thinking pushed to its absolute limits under severe time constraints.</p>
+                <div style="margin: 1.5rem 0; font-size: 0.9rem; color:#ccc;">
+                    <p><strong>Rules:</strong> ICPC format.</p>
+                    <p><strong>Team Size:</strong> up to 3</p>
+                    <p><strong>Entry Fee:</strong> Free</p>
+                </div>
+                <div class="event-prize">₹30,000</div>
+                <a href="#register" class="btn-technex primary" style="display:block; text-align:center;">REGISTER</a>
+            </div>
+            <!-- Card 5 -->
+            <div class="event-card staggered-item">
+                <div class="section-tag">[ GAMING ]</div>
+                <h3 class="event-title">Valorant Clash</h3>
+                <p class="event-tagline">Tactical 5v5 FPS tournament taking place in our massive auditorium.</p>
+                <div style="margin: 1.5rem 0; font-size: 0.9rem; color:#ccc;">
+                    <p><strong>Rules:</strong> Standard VCT ruleset.</p>
+                    <p><strong>Team Size:</strong> 5 Members (+1 sub)</p>
+                    <p><strong>Entry Fee:</strong> ₹400/Team</p>
+                </div>
+                <div class="event-prize">₹25,000</div>
+                <a href="#register" class="btn-technex primary" style="display:block; text-align:center;">REGISTER</a>
+            </div>
+            <!-- Card 6 -->
+            <div class="event-card staggered-item">
+                <div class="section-tag">[ HACKATHON ]</div>
+                <h3 class="event-title">Web3 Build</h3>
+                <p class="event-tagline">Decentralize the industry by establishing DApps over the weekend.</p>
+                <div style="margin: 1.5rem 0; font-size: 0.9rem; color:#ccc;">
+                    <p><strong>Rules:</strong> Must deploy on testnet.</p>
+                    <p><strong>Team Size:</strong> 1 - 4 Members</p>
+                    <p><strong>Entry Fee:</strong> Free</p>
+                </div>
+                <div class="event-prize">₹20,000</div>
+                <a href="#register" class="btn-technex primary" style="display:block; text-align:center;">REGISTER</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="tech-footer" style="padding-top: 2rem;">
+        <div class="footer-bottom">
+            <div class="copy">&copy; 2026 AAYAM &middot; NST</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
