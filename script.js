@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader");
 
     const frameCount = 200;
-    const currentFrame = index => `images/ezgif-frame-${String(index).padStart(3, '0')}.png`;
+    const currentFrame = index => `images/ezgif-frame-${String(index).padStart(3, '0')}.webp`;
 
     const images = [];
     let loadedImages = 0;
