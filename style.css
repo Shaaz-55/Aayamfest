@@ -179,7 +179,7 @@ body {
     width: 100vw;
     min-height: 130vh;
     /* Extra height to fit dashboard */
-    padding-top: 150px;
+    padding-top: 470px;
     display: flex;
     flex-direction: column;
     align-items: center;
