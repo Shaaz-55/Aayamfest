@@ -149,15 +149,11 @@
     </footer>
 
     <script src="script.js"></script>
-
 <!-- 
-  Replace your existing <script> block at the bottom of apply.html
-  with this one. Paste your Apps Script Web App URL below.
+  Replace your existing <script> block at the bottom of apply.html with this.
+  No URL to paste — /api/register is auto-detected by Vercel.
 -->
 <script>
-  // ⬇ Paste your Apps Script Web App URL here
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyL-m-SJ5iMDMDnjf_aJZmDMzoNLxW_wwPBewcliVZLqa-FOJeFD78y2vMKxAPyNDjs/exec";
-
   async function handleCAFormSubmit(e) {
     e.preventDefault();
 
@@ -166,7 +162,6 @@
     btn.disabled = true;
     btn.style.opacity = '0.6';
 
-    // Collect all form field values
     const formData = {
       fullname:   document.getElementById('ca-fullname').value.trim(),
       email:      document.getElementById('ca-email').value.trim(),
@@ -183,34 +178,30 @@
     };
 
     try {
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        // Apps Script requires text/plain for CORS-free POST
-        headers: { "Content-Type": "text/plain" },
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
       const result = await res.json();
 
       if (result.success) {
-        // Show success UI
         document.getElementById('ca-registration-form').style.display = 'none';
         document.querySelector('.reg-form-header').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error(result.error || "Submission failed");
+        throw new Error(result.error || 'Submission failed');
       }
 
     } catch (err) {
-      // Show error without losing the user's filled form
       btn.textContent = 'SUBMIT APPLICATION';
       btn.disabled = false;
       btn.style.opacity = '1';
-      alert("Something went wrong. Please try again.\n\nError: " + err.message);
+      alert('Something went wrong. Please try again.\n\nError: ' + err.message);
     }
   }
 </script>
-
 </body>
 </html>
