@@ -1,20 +1,17 @@
 // ============================================================
 //  AAYAM '26 — Campus Ambassador Registration
 //  Vercel Serverless Function: /api/register.js
-//  Saves to Firebase Firestore + sends confirmation email
 // ============================================================
 
 const { initializeApp, cert, getApps } = require("firebase-admin/app");
 const { getFirestore }                 = require("firebase-admin/firestore");
 const nodemailer                       = require("nodemailer");
 
-// ── Initialize Firebase Admin (only once across hot reloads) ─
 if (!getApps().length) {
   initializeApp({
     credential: cert({
       projectId:   process.env.FIREBASE_PROJECT_ID,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      // Vercel stores \n as literal \\n — this fixes it
       privateKey:  process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
     }),
   });
@@ -22,27 +19,12 @@ if (!getApps().length) {
 
 const db = getFirestore();
 
-// ── Nodemailer transporter using your custom domain SMTP ─────
-const transporter = nodemailer.createTransport({
-  host:   process.env.SMTP_HOST,
-  port:   Number(process.env.SMTP_PORT) || 587,
-  secure: false, // true for port 465, false for 587
-  auth: {
-    user: process.env.SMTP_USER,  // Techlead@aayamfest.club
-    pass: process.env.SMTP_PASS,
-  },
-});
-
-// ── Main handler ─────────────────────────────────────────────
 module.exports = async function handler(req, res) {
-  // CORS headers — allows your frontend domain to call this API
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // Handle preflight
   if (req.method === "OPTIONS") return res.status(200).end();
-
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, error: "Method not allowed" });
   }
@@ -50,31 +32,34 @@ module.exports = async function handler(req, res) {
   try {
     const data = req.body;
 
-    // ── Basic validation ──────────────────────────────────────
     if (!data.fullname || !data.email || !data.phone || !data.college) {
       return res.status(400).json({ success: false, error: "Missing required fields" });
     }
 
     // ── Save to Firestore ─────────────────────────────────────
     await db.collection("ca-registrations").add({
-      fullname:   data.fullname   || "",
-      email:      data.email      || "",
-      phone:      data.phone      || "",
-      gender:     data.gender     || "",
-      college:    data.college    || "",
-      course:     data.course     || "",
-      year:       data.year       || "",
-      city:       data.city       || "",
-      linkedin:   data.linkedin   || "",
-      instagram:  data.instagram  || "",
-      why:        data.why        || "",
-      experience: data.experience || "",
+      fullname:    data.fullname   || "",
+      email:       data.email      || "",
+      phone:       data.phone      || "",
+      gender:      data.gender     || "",
+      college:     data.college    || "",
+      course:      data.course     || "",
+      year:        data.year       || "",
+      city:        data.city       || "",
+      linkedin:    data.linkedin   || "",
+      instagram:   data.instagram  || "",
+      why:         data.why        || "",
+      experience:  data.experience || "",
       submittedAt: new Date().toISOString(),
     });
 
-    // ── Send confirmation email ───────────────────────────────
-    await sendConfirmationEmail(data);
+    // ── Send email — failure will NOT affect the user ─────────
+    // Fire and forget — we don't await this
+    sendConfirmationEmail(data).catch(err => {
+      console.error("Email failed (non-blocking):", err.message);
+    });
 
+    // ── Always return success if Firestore saved ──────────────
     return res.status(200).json({ success: true });
 
   } catch (err) {
@@ -83,8 +68,17 @@ module.exports = async function handler(req, res) {
   }
 };
 
-// ── Confirmation Email ────────────────────────────────────────
 async function sendConfirmationEmail(data) {
+  const transporter = nodemailer.createTransport({
+    host:   process.env.SMTP_HOST,
+    port:   Number(process.env.SMTP_PORT) || 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
   const htmlBody = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; color: #1a1a1a;">
       <div style="background: #0d0d1a; padding: 24px 32px; border-radius: 8px 8px 0 0;">
@@ -95,7 +89,7 @@ async function sendConfirmationEmail(data) {
         <h2 style="color: #0d0d1a; font-size: 18px;">Application Received! ✓</h2>
         <p>Hi <strong>${data.fullname}</strong>,</p>
         <p>Thank you for applying to the <strong>AAYAM '26 Campus Ambassador Programme</strong>!</p>
-        <p>We've received your application and our team will review it shortly. We'll reach out to you with the next steps.</p>
+        <p>We've received your application and our team will review it shortly.</p>
         <div style="background: #ede9fe; border-left: 4px solid #7c3aed; padding: 16px 20px; border-radius: 4px; margin: 24px 0;">
           <p style="margin: 0 0 8px; font-size: 13px; color: #555; text-transform: uppercase; letter-spacing: 1px;">Application Summary</p>
           <table style="font-size: 14px; width: 100%; border-collapse: collapse;">
@@ -112,11 +106,11 @@ async function sendConfirmationEmail(data) {
   `;
 
   await transporter.sendMail({
-    from:     `"Team AAYAM '26" <${process.env.SMTP_USER}>`,
-    to:       data.email,
-    subject:  "AAYAM '26 — Campus Ambassador Application Received!",
-    text:     `Hi ${data.fullname}, your application has been received! We'll review it and get back to you soon. - Team AAYAM '26`,
-    html:     htmlBody,
-    replyTo:  process.env.SMTP_USER,
+    from:    `"Team AAYAM '26" <${process.env.SMTP_USER}>`,
+    to:      data.email,
+    subject: "✅ AAYAM '26 — Campus Ambassador Application Received!",
+    text:    `Hi ${data.fullname}, your application has been received! We'll review it and get back to you soon. - Team AAYAM '26`,
+    html:    htmlBody,
+    replyTo: process.env.SMTP_USER,
   });
 }
