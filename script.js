@@ -360,3 +360,16 @@ function initSpaceBackground() {
 document.addEventListener('DOMContentLoaded', () => {
     initSpaceBackground();
 });
+
+// Fade to Black Animation Function
+function animateToEventsPage() {
+    // Create overlay element
+    const overlay = document.createElement('div');
+    overlay.className = 'fade-to-black-overlay';
+    document.body.appendChild(overlay);
+
+    // Navigate to events page after animation completes
+    setTimeout(() => {
+        window.location.href = 'events.html';
+    }, 1200); // 1.2 seconds to match animation duration
+}
