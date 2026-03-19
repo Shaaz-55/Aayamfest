@@ -16,7 +16,7 @@
 
     <nav class="reflect-nav scrolled" id="main-nav" style="background: rgba(8, 5, 16, 0.9);">
         <div class="nav-left">
-            <span class="logo-text technex-logo">AAYAM '26</span>
+            <a href="index.html" class="logo-text technex-logo" style="text-decoration:none;color:inherit;">AAYAM '26</a>
         </div>
         <div class="nav-center">
             <a href="home.html">Home</a>
@@ -30,7 +30,21 @@
         <div class="nav-right">
             <a href="#register" class="nav-cta filled">REGISTER</a>
         </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
+    <- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="sponsors.html">Sponsors</a>
+        <a href="team.html">Team</a>
+        <a href="ambassador.html">Ambassador</a>
+        <a href="contact.html">Contact</a>
+    </div>
 
     <header class="page-header">
         <h1 class="page-title">SPONSORS & PARTNERS</h1>
@@ -74,9 +88,9 @@
     <!-- Why Sponsor AAYAM Section -->
     <section class="section tech-section fade-in-section">
         <div class="section-container">
-            <h2 class="section-title">WHY SPONSOR AAYAM?</h2>
-            <p class="section-desc">Reach 3000+ developers, engineers, and students at Newton School of Technology</p>
-            <div class="features-grid" style="margin-top: 3rem;">
+            <h2 class="page-title" style="text-align: center; font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 0.5rem;">WHY SPONSOR AAYAM?</h2>
+            <p class="page-subtitle" style="text-align: center; margin-bottom: 2rem;">Reach 3000+ developers, engineers, and students at Newton School of Technology</p>
+            <div class="features-grid" style="margin: 3rem auto 0; max-width: 800px;">
                 <div class="feature-card staggered-item"
                     style="display: flex; flex-direction: column; align-items: center; text-align: center;">
                     <div class="feature-icon">👥</div>
@@ -113,11 +127,10 @@
 
     <!-- Sponsor CTA -->
     <section class="sponsor-cta-section">
-        <h2>INTERESTED IN SPONSORING?</h2>
-        <p>Partner with AAYAM to put your brand in front of 3000+ developers and engineers at Newton School of
-            Technology.</p>
+        <h2 class="page-title" style="text-align: center; font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 0.5rem;">INTERESTED IN SPONSORING?</h2>
+        <p class="page-subtitle" style="text-align: center; margin-bottom: 2rem;">Partner with AAYAM to put your brand in front of 3000+ developers and engineers at Newton School of Technology.</p>
         <div class="sponsor-cta-buttons">
-            <a href="mailto:aayam.fest@newtonschool.co" class="btn-technex primary">Contact the Sponsorship Team</a>
+            <a href="contact.html" class="btn-technex primary">Contact the Sponsorship Team</a>
             <a href="#" class="btn-technex" style="border: 1px solid var(--accent); color: var(--accent);">Download
                 Brochure</a>
         </div>

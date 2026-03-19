@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply – Campus Ambassador | Aayam</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <nav class="reflect-nav scrolled" id="main-nav" style="background: rgba(8, 5, 16, 0.9);">
         <div class="nav-left">
-             <span class="logo-text technex-logo">AAYAM '26</span>
+            <a href="index.html" class="logo-text technex-logo" style="text-decoration:none;color:inherit;">AAYAM '26</a>
         </div>
         <div class="nav-center">
             <a href="home.html">Home</a>
@@ -24,7 +27,21 @@
         <div class="nav-right">
             <a href="#register" class="nav-cta filled">REGISTER</a>
         </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
+    <- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="sponsors.html">Sponsors</a>
+        <a href="team.html">Team</a>
+        <a href="ambassador.html">Ambassador</a>
+        <a href="contact.html">Contact</a>
+    </div>
 
     <header class="page-header">
         <h1 class="page-title">APPLY NOW</h1>
@@ -36,7 +53,8 @@
             <div class="reg-form-header">
                 <div class="section-tag">[ REGISTRATION FORM ]</div>
                 <h2 class="section-heading">Join the AAYAM Family</h2>
-                <p class="reg-form-desc">Fill in your details below to apply for the Campus Ambassador Programme. Our team will review your application and get back to you shortly.</p>
+                <p class="reg-form-desc">Fill in your details below to apply for the Campus Ambassador Programme. Our
+                    team will review your application and get back to you shortly.</p>
             </div>
 
             <form class="ca-form" id="ca-registration-form" onsubmit="handleCAFormSubmit(event)">
@@ -72,7 +90,8 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="ca-college">College / University <span class="required">*</span></label>
-                        <input type="text" id="ca-college" name="college" placeholder="Name of your institution" required>
+                        <input type="text" id="ca-college" name="college" placeholder="Name of your institution"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="ca-course">Course / Branch <span class="required">*</span></label>
@@ -100,7 +119,8 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="ca-linkedin">LinkedIn Profile</label>
-                        <input type="url" id="ca-linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                        <input type="url" id="ca-linkedin" name="linkedin"
+                            placeholder="https://linkedin.com/in/yourprofile">
                     </div>
                     <div class="form-group">
                         <label for="ca-instagram">Instagram Handle</label>
@@ -109,13 +129,17 @@
                 </div>
 
                 <div class="form-group full-width">
-                    <label for="ca-why">Why do you want to be a Campus Ambassador? <span class="required">*</span></label>
-                    <textarea id="ca-why" name="why" rows="4" placeholder="Tell us your motivation and what you can bring to the programme..." required></textarea>
+                    <label for="ca-why">Why do you want to be a Campus Ambassador? <span
+                            class="required">*</span></label>
+                    <textarea id="ca-why" name="why" rows="4"
+                        placeholder="Tell us your motivation and what you can bring to the programme..."
+                        required></textarea>
                 </div>
 
                 <div class="form-group full-width">
                     <label for="ca-experience">Any prior experience in event management / marketing?</label>
-                    <textarea id="ca-experience" name="experience" rows="3" placeholder="Briefly describe your relevant experience (if any)..."></textarea>
+                    <textarea id="ca-experience" name="experience" rows="3"
+                        placeholder="Briefly describe your relevant experience (if any)..."></textarea>
                 </div>
 
                 <!-- Agreement -->
@@ -123,7 +147,8 @@
                     <label class="checkbox-label">
                         <input type="checkbox" id="ca-agree" name="agree" required>
                         <span class="checkmark"></span>
-                        I agree to be contacted by the AAYAM team and confirm that the information provided is accurate. <span class="required">*</span>
+                        I agree to be contacted by the AAYAM team and confirm that the information provided is accurate.
+                        <span class="required">*</span>
                     </label>
                 </div>
 
@@ -136,8 +161,10 @@
             <div class="form-success" id="form-success" style="display:none;">
                 <div class="success-icon">✓</div>
                 <h2 class="section-heading">Application Submitted!</h2>
-                <p class="reg-form-desc">Thank you for applying to the AAYAM Campus Ambassador Programme. We'll review your application and reach out to you via email soon.</p>
-                <a href="ambassador.html" class="btn-technex secondary" style="margin-top:2rem; display:inline-block;">← Back to Ambassador Page</a>
+                <p class="reg-form-desc">Thank you for applying to the AAYAM Campus Ambassador Programme. We'll review
+                    your application and reach out to you via email soon.</p>
+                <a href="ambassador.html" class="btn-technex secondary" style="margin-top:2rem; display:inline-block;">←
+                    Back to Ambassador Page</a>
             </div>
         </div>
     </section>
@@ -156,7 +183,10 @@
                 <p class="f-host">Techfest by Newton School of Technology</p>
                 <div class="footer-social">
                     <a href="https://www.instagram.com/aayam.nst/" target="_blank">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg>
                         @aayam.nst
                     </a>
                 </div>
@@ -178,7 +208,8 @@
             <div class="footer-col contact">
                 <h4>CONTACT</h4>
                 <a href="mailto:aayam.fest@newtonschool.co">aayam.fest@newtonschool.co</a>
-                <p class="address">NST S-VYASA University,Sattva Global City Campus, Mysore Road, Rajarajeshwari Nagar, Bengaluru, Karnataka, 560059</p>
+                <p class="address">NST S-VYASA University,Sattva Global City Campus, Mysore Road, Rajarajeshwari Nagar,
+                    Bengaluru, Karnataka, 560059</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -188,59 +219,60 @@
     </footer>
 
     <script src="script.js"></script>
-<!-- 
+    <!-- 
   Replace your existing <script> block at the bottom of apply.html with this.
   No URL to paste — /api/register is auto-detected by Vercel.
 -->
-<script>
-  async function handleCAFormSubmit(e) {
-    e.preventDefault();
+    <script>
+        async function handleCAFormSubmit(e) {
+            e.preventDefault();
 
-    const btn = document.getElementById('ca-submit-btn');
-    btn.textContent = 'SUBMITTING...';
-    btn.disabled = true;
-    btn.style.opacity = '0.6';
+            const btn = document.getElementById('ca-submit-btn');
+            btn.textContent = 'SUBMITTING...';
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
 
-    const formData = {
-      fullname:   document.getElementById('ca-fullname').value.trim(),
-      email:      document.getElementById('ca-email').value.trim(),
-      phone:      document.getElementById('ca-phone').value.trim(),
-      gender:     document.getElementById('ca-gender').value,
-      college:    document.getElementById('ca-college').value.trim(),
-      course:     document.getElementById('ca-course').value.trim(),
-      year:       document.getElementById('ca-year').value,
-      city:       document.getElementById('ca-city').value.trim(),
-      linkedin:   document.getElementById('ca-linkedin').value.trim(),
-      instagram:  document.getElementById('ca-instagram').value.trim(),
-      why:        document.getElementById('ca-why').value.trim(),
-      experience: document.getElementById('ca-experience').value.trim(),
-    };
+            const formData = {
+                fullname: document.getElementById('ca-fullname').value.trim(),
+                email: document.getElementById('ca-email').value.trim(),
+                phone: document.getElementById('ca-phone').value.trim(),
+                gender: document.getElementById('ca-gender').value,
+                college: document.getElementById('ca-college').value.trim(),
+                course: document.getElementById('ca-course').value.trim(),
+                year: document.getElementById('ca-year').value,
+                city: document.getElementById('ca-city').value.trim(),
+                linkedin: document.getElementById('ca-linkedin').value.trim(),
+                instagram: document.getElementById('ca-instagram').value.trim(),
+                why: document.getElementById('ca-why').value.trim(),
+                experience: document.getElementById('ca-experience').value.trim(),
+            };
 
-    try {
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
 
-      const result = await res.json();
+                const result = await res.json();
 
-      if (result.success) {
-        document.getElementById('ca-registration-form').style.display = 'none';
-        document.querySelector('.reg-form-header').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        throw new Error(result.error || 'Submission failed');
-      }
+                if (result.success) {
+                    document.getElementById('ca-registration-form').style.display = 'none';
+                    document.querySelector('.reg-form-header').style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    throw new Error(result.error || 'Submission failed');
+                }
 
-    } catch (err) {
-      btn.textContent = 'SUBMIT APPLICATION';
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      alert('Something went wrong. Please try again.\n\nError: ' + err.message);
-    }
-  }
-</script>
+            } catch (err) {
+                btn.textContent = 'SUBMIT APPLICATION';
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                alert('Something went wrong. Please try again.\n\nError: ' + err.message);
+            }
+        }
+    </script>
 </body>
+
 </html>

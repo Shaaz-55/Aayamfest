@@ -910,7 +910,7 @@ body {
     z-index: 5;
     width: 100%;
     max-width: 1000px;
-    margin-top: 38vh;
+    margin-top: 20vh;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -931,12 +931,10 @@ body {
 }
 
 .hero-main-title {
-    font-size: clamp(4rem, 8vw, 7.5rem);
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -2px;
-    margin-bottom: 1rem;
-    text-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+    width: clamp(200px, 70vw, 550px);
+    height: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 40px rgba(0, 0, 0, 0.8));
 }
 
 .hero-subtext {
@@ -2026,19 +2024,23 @@ body {
 .team-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 3rem;
     justify-content: center;
     padding: 0 2rem;
     margin-bottom: 4rem;
 }
 
 .team-card {
-    width: 200px;
+    width: 260px;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-shrink: 0;
     background: var(--bg-card-solid);
     border: 1px solid var(--border-dim);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     text-align: center;
     transition: transform 0.3s;
 }
@@ -2226,6 +2228,19 @@ body {
 .featured-events-row .event-card {
     flex: 0 0 250px; /* Fixed basis, forces row to maintain shape */
     max-width: 350px;
+}
+
+@media (max-width: 768px) {
+    .featured-events-row {
+        flex-direction: column;
+        overflow-x: visible;
+        align-items: center;
+    }
+    .featured-events-row .event-card {
+        flex: unset;
+        width: 100%;
+        max-width: 400px;
+    }
 }
 
 /* Fade to Black Animation */
@@ -2763,54 +2778,27 @@ body {
 /* =========================================
    CLEARANCE LEVELS (Ambassador)
    ========================================= */
-.clearance-section-title {
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #00e5ff;
-    margin-bottom: 2.5rem;
-    letter-spacing: 0.05em;
-}
-
 .clearance-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    max-width: 900px;
+    gap: 3rem;
+    max-width: 1100px;
     margin: 0 auto 4rem;
 }
 
 .clearance-card {
-    background: rgba(15, 20, 35, 0.9);
-    border-radius: 8px;
-    padding: 2rem;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-dim);
+    border-radius: 12px;
+    padding: 3rem;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.clearance-card::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(135deg, #ff00ff, #ffff00, #ff00ff);
-    border-radius: 10px;
-    z-index: -1;
-    opacity: 0.6;
-}
-
-.clearance-card::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: rgba(15, 20, 35, 0.95);
-    border-radius: 6px;
-    z-index: -1;
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .clearance-card:hover {
     transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .clearance-header {
@@ -2821,20 +2809,19 @@ body {
 }
 
 .clearance-header h3 {
-    font-family: 'JetBrains Mono', monospace;
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary);
 }
 
 .clearance-badge {
-    font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
-    color: #00ff88;
-    border: 1px solid #00ff88;
+    color: var(--accent);
+    border: 1px solid var(--accent);
     padding: 0.2rem 0.6rem;
     border-radius: 4px;
     letter-spacing: 0.05em;
+    font-weight: 600;
 }
 
 .clearance-card ul {
@@ -2854,7 +2841,7 @@ body {
     content: '•';
     position: absolute;
     left: 0;
-    color: #00e5ff;
+    color: var(--accent);
 }
 
 @media (max-width: 768px) {
@@ -2866,70 +2853,38 @@ body {
 /* =========================================
    FAQ SECTION (Ambassador)
    ========================================= */
-.faq-section-title {
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #00e5ff;
-    margin-bottom: 2.5rem;
-    letter-spacing: 0.05em;
-}
-
 .faq-list {
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 .faq-card {
-    background: rgba(15, 20, 35, 0.9);
-    border-radius: 8px;
-    padding: 1.8rem 2rem;
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-dim);
+    border-radius: 12px;
+    padding: 2.5rem 3rem;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.faq-card::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(135deg, #ff00ff, #ffff00);
-    border-radius: 10px;
-    z-index: -1;
-    opacity: 0.6;
-}
-
-.faq-card::after {
-    content: '';
-    position: absolute;
-    inset: 2px;
-    background: rgba(15, 20, 35, 0.95);
-    border-radius: 6px;
-    z-index: -1;
-}
-
-.faq-card:nth-child(even)::before {
-    background: linear-gradient(135deg, #ffff00, #ff00ff);
+    transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .faq-card:hover {
     transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .faq-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: #00e5ff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
     margin-bottom: 0.5rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
 }
 
 .faq-card h3 {
-    font-family: 'JetBrains Mono', monospace;
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--primary);

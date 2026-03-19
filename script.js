@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let loadedImages = 0;
 
     const resizeCanvas = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
         render(); // render current frame immediately upon resize
     };
 
@@ -69,16 +70,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let drawWidth, drawHeight, offsetX, offsetY;
 
-        if (canvasRatio > imgRatio) {
-            drawWidth = canvas.width;
-            drawHeight = canvas.width / imgRatio;
-            offsetX = 0;
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile) {
+            // object-fit: contain logic for mobile
+            if (canvasRatio < imgRatio) {
+                drawWidth = canvas.width;
+                drawHeight = canvas.width / imgRatio;
+            } else {
+                drawHeight = canvas.height;
+                drawWidth = canvas.height * imgRatio;
+            }
+            offsetX = (canvas.width - drawWidth) / 2;
             offsetY = (canvas.height - drawHeight) / 2;
         } else {
-            drawHeight = canvas.height;
-            drawWidth = canvas.height * imgRatio;
-            offsetX = (canvas.width - drawWidth) / 2;
-            offsetY = 0;
+            // object-fit: cover logic for desktop
+            if (canvasRatio > imgRatio) {
+                drawWidth = canvas.width;
+                drawHeight = canvas.width / imgRatio;
+                offsetX = 0;
+                offsetY = (canvas.height - drawHeight) / 2;
+            } else {
+                drawHeight = canvas.height;
+                drawWidth = canvas.height * imgRatio;
+                offsetX = (canvas.width - drawWidth) / 2;
+                offsetY = 0;
+            }
         }
 
         ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
@@ -203,8 +220,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Countdown Timer Logic
     const countdownContainer = document.querySelector('.singularity-timer-container');
     if (countdownContainer) {
-        // Target date: exactly 37 days from the user's execution time request (Mar 17 2026 + 37 days)
-        const targetDate = new Date("April 23, 2026 00:30:39").getTime();
+        // Target date: exactly 35 days 14 hours from Mar 19 2026
+        const targetDate = new Date("April 24, 2026 08:53:39").getTime();
 
         const updateCountdown = () => {
             const now = new Date().getTime();
