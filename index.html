@@ -280,20 +280,113 @@
       white-space: nowrap;
     }
 
-    @media (max-width: 480px) {
+    /* Tablet */
+    @media (max-width: 768px) {
       #crt-button {
-        padding: 18px 28px;
-        font-size: 13px;
-        letter-spacing: 0.12em;
+        padding: 20px 40px;
+        font-size: 16px;
+        letter-spacing: 0.2em;
       }
 
-      #watermark,
+      #watermark {
+        top: 16px;
+        left: 20px;
+        font-size: 11px;
+      }
+
       #date-badge {
+        top: 16px;
+        right: 20px;
         font-size: 10px;
       }
 
       #tagline {
+        bottom: 20px;
         font-size: 9px;
+        letter-spacing: 0.2em;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+      #crt-button {
+        padding: 16px 24px;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+      }
+
+      #btn-subtext {
+        font-size: 9px;
+        letter-spacing: 0.2em;
+      }
+
+      #watermark {
+        top: 12px;
+        left: 14px;
+        font-size: 10px;
+        letter-spacing: 0.15em;
+      }
+
+      #date-badge {
+        top: 12px;
+        right: 14px;
+        font-size: 9px;
+      }
+
+      #tagline {
+        bottom: 14px;
+        font-size: 8px;
+        letter-spacing: 0.15em;
+      }
+
+      .btn-corner {
+        width: 8px;
+        height: 8px;
+      }
+    }
+
+    /* Very small phones */
+    @media (max-width: 360px) {
+      #crt-button {
+        padding: 14px 18px;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+      }
+
+      #btn-subtext {
+        font-size: 8px;
+      }
+
+      #tagline {
+        display: none;
+      }
+    }
+
+    /* Landscape phones */
+    @media (max-height: 500px) and (orientation: landscape) {
+      #crt-button {
+        padding: 14px 32px;
+        font-size: 14px;
+      }
+
+      #button-container {
+        gap: 10px;
+      }
+
+      #watermark {
+        top: 10px;
+        left: 14px;
+        font-size: 10px;
+      }
+
+      #date-badge {
+        top: 10px;
+        right: 14px;
+        font-size: 9px;
+      }
+
+      #tagline {
+        bottom: 10px;
       }
     }
   </style>
@@ -304,12 +397,12 @@
   <div id="space-bg"></div>
 
   <div id="watermark">AAYAM '26</div>
-  <div id="date-badge">MARCH 2026</div>
+  <div id="date-badge">APRIL 2026</div>
 
   <div id="button-container">
     <div id="crt-button" onclick="startSequence()">
       <div class="scanlines"></div>
-      <div class="glitch-text" data-text="ENTER ANOTHER REALM">ENTER ANOTHER REALM</div>
+      <div class="glitch-text" data-text="ENTER ANOTHER REALM">ENTER ANOTHER AAYAM</div>
       <div class="btn-corner btn-corner--tl"></div>
       <div class="btn-corner btn-corner--tr"></div>
       <div class="btn-corner btn-corner--bl"></div>
@@ -319,7 +412,7 @@
   </div>
 
   <div id="flash-overlay"></div>
-  <div id="tagline">National Techfest · Beyond the Event Horizon</div>
+  <div id="tagline">· Beyond the Event Horizon ·</div>
 
   <script>
     // ── STAR DATA ──────────────────────────────────────────────────────────────
