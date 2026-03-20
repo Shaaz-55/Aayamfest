@@ -280,12 +280,22 @@
       white-space: nowrap;
     }
 
+    /* Base button fix — add this to your existing #crt-button base styles */
+    #crt-button {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
     /* Tablet */
     @media (max-width: 768px) {
       #crt-button {
         padding: 20px 40px;
         font-size: 16px;
         letter-spacing: 0.2em;
+        text-align: center;
       }
 
       #watermark {
@@ -304,20 +314,31 @@
         bottom: 20px;
         font-size: 9px;
         letter-spacing: 0.2em;
+        text-align: center;
+        width: 100%;
       }
     }
 
     /* Mobile */
     @media (max-width: 480px) {
       #crt-button {
-        padding: 16px 24px;
+        padding: 16px 32px;
+        /* increased horizontal padding for balance */
         font-size: 13px;
         letter-spacing: 0.12em;
+        text-align: center;
+        white-space: nowrap;
+        /* prevents awkward mid-word line breaks */
+        width: auto;
+        /* let button size to its content */
+        min-width: 200px;
+        /* ensures it doesn't collapse too narrow */
       }
 
       #btn-subtext {
-        font-size: 9px;
+        font-size: 5px;
         letter-spacing: 0.2em;
+        text-align: center;
       }
 
       #watermark {
@@ -337,6 +358,9 @@
         bottom: 14px;
         font-size: 8px;
         letter-spacing: 0.15em;
+        text-align: center;
+        width: 100%;
+        left: 0;
       }
 
       .btn-corner {
@@ -348,13 +372,17 @@
     /* Very small phones */
     @media (max-width: 360px) {
       #crt-button {
-        padding: 14px 18px;
-        font-size: 11px;
+        font-size: 12px;
+        /* slightly reduced to fit on one line */
         letter-spacing: 0.08em;
+        padding: 14px 20px;
+        white-space: nowrap;
+        text-align: center;
       }
 
       #btn-subtext {
         font-size: 8px;
+        text-align: center;
       }
 
       #tagline {
@@ -367,6 +395,8 @@
       #crt-button {
         padding: 14px 32px;
         font-size: 14px;
+        text-align: center;
+        white-space: nowrap;
       }
 
       #button-container {
@@ -387,6 +417,8 @@
 
       #tagline {
         bottom: 10px;
+        text-align: center;
+        width: 100%;
       }
     }
   </style>

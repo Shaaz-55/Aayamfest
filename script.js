@@ -173,11 +173,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mobile Menu Toggle
     const mobileBtn = document.querySelector('.mobile-menu-btn');
     const mobileOverlay = document.querySelector('.mobile-menu-overlay');
+    const mobileClose = document.querySelector('.mobile-menu-close');
     if (mobileBtn && mobileOverlay) {
         mobileBtn.addEventListener('click', () => {
             mobileBtn.classList.toggle('active');
             mobileOverlay.classList.toggle('active');
         });
+        if (mobileClose) {
+            mobileClose.addEventListener('click', () => {
+                mobileBtn.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+            });
+        }
         mobileOverlay.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileBtn.classList.remove('active');

@@ -897,6 +897,26 @@ body {
     pointer-events: all;
 }
 
+.mobile-menu-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 101;
+    line-height: 1;
+    padding: 0.5rem;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.mobile-menu-close:hover {
+    opacity: 0.7;
+    transform: rotate(90deg);
+}
+
 .mobile-menu-overlay a {
     color: #fff;
     text-decoration: none;
