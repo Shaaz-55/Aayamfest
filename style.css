@@ -183,6 +183,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* opacity: 0.5; */
 }
 
 .hero-top {
@@ -2198,6 +2199,7 @@ body {
     pointer-events: none;
     overflow: hidden;
     background: transparent;
+    background-color: #000;
 }
 
 /* Base Star Layout */
