@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const loader = document.getElementById("loader");
 
     const frameCount = 200;
-    const currentFrame = index => `images/ezgif-frame-${String(index).padStart(3, '0')}.webp`;
+    const currentFrame = index => `compressed_img/ezgif-frame-${String(index).padStart(3, '0')}.png`;
 
     const images = [];
     let loadedImages = 0;
@@ -323,30 +323,30 @@ function initSpaceBackground() {
     if (!bgContainer) return;
 
     const numStars = 150;
-    
+
     // Create static/twinkling stars
     for (let i = 0; i < numStars; i++) {
         const star = document.createElement('div');
         star.classList.add('bg-star');
-        
+
         // Random position
         const x = Math.random() * 100; // vw
         const y = Math.random() * 100; // vh
-        
+
         // Random size
         const size = Math.random() * 2.5 + 0.5; // 0.5px to 3px
-        
+
         // Random twinkle animation duration and delay
         const duration = Math.random() * 3 + 2; // 2s to 5s
         const delay = Math.random() * 5;
-        
+
         star.style.left = `${x}vw`;
         star.style.top = `${y}vh`;
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
         star.style.animationDuration = `${duration}s`;
         star.style.animationDelay = `${delay}s`;
-        
+
         bgContainer.appendChild(star);
     }
 
@@ -354,16 +354,16 @@ function initSpaceBackground() {
     function createShootingStar() {
         const shootingStar = document.createElement('div');
         shootingStar.classList.add('shooting-star');
-        
+
         // Random starting position (mostly top right half to shoot down-left)
         const startX = Math.random() * 100 + 20; // 20vw to 120vw
         const startY = Math.random() * 60 - 20;  // -20vh to 40vh
-        
+
         shootingStar.style.left = `${startX}vw`;
         shootingStar.style.top = `${startY}vh`;
-        
+
         bgContainer.appendChild(shootingStar);
-        
+
         // Remove after animation completes
         setTimeout(() => {
             if (shootingStar.parentNode) {
