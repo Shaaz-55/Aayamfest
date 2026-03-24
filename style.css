@@ -1140,7 +1140,20 @@ body {
 
 @media (max-width: 600px) {
     .singularity-timer-container {
-        gap: 0.8rem;
+        gap: 0.5rem;
+    }
+
+    .time-box {
+        width: clamp(60px, 20vw, 80px);
+        height: clamp(70px, 22vw, 100px);
+    }
+
+    .time-box .number {
+        font-size: clamp(2rem, 8vw, 3rem);
+    }
+
+    .time-block .label {
+        font-size: 0.5rem;
     }
 }
 
@@ -2666,8 +2679,16 @@ body {
     justify-items: center;
 }
 
+.category-events-grid.col-1 {
+    grid-template-columns: 1fr;
+}
+
 .category-events-grid.col-2 {
     grid-template-columns: repeat(2, 1fr);
+}
+
+.category-events-grid.col-3 {
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .category-events-grid.col-4 {
@@ -2675,14 +2696,17 @@ body {
 }
 
 @media (max-width: 1200px) {
-    .category-events-grid.col-4 {
+    .category-events-grid.col-4,
+    .category-events-grid.col-3 {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
 
+    .category-events-grid.col-1,
     .category-events-grid.col-2,
+    .category-events-grid.col-3,
     .category-events-grid.col-4 {
         grid-template-columns: 1fr;
     }
@@ -2785,7 +2809,9 @@ body {
 @media (max-width: 768px) {
 
     .category-events-grid.col-4,
-    .category-events-grid.col-2 {
+    .category-events-grid.col-3,
+    .category-events-grid.col-2,
+    .category-events-grid.col-1 {
         grid-template-columns: 1fr;
         justify-items: center;
     }
