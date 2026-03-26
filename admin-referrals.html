@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referral Points | AAYAM Admin</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Outfit', sans-serif; background: #0d0d1a; color: #fff; min-height: 100vh; }
+
+    .admin-nav {
+      background: rgba(8,5,16,0.95);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .admin-nav .logo { font-size: 1.2rem; font-weight: 800; color: #a78bfa; letter-spacing: 2px; }
+    .admin-nav-links a {
+      color: rgba(255,255,255,0.6); text-decoration: none;
+      margin-left: 1.5rem; font-size: 0.9rem; transition: color 0.2s;
+    }
+    .admin-nav-links a:hover, .admin-nav-links a.active { color: #a78bfa; }
+
+    .page-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    .page-title { font-size: clamp(1.8rem,4vw,2.5rem); color: #a78bfa; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.25rem; }
+    .page-sub { color: rgba(255,255,255,0.4); font-size: 0.85rem; text-transform: uppercase;
+      letter-spacing: 2px; margin-bottom: 2.5rem; }
+
+    /* Login gate */
+    .login-gate { max-width: 400px; margin: 6rem auto; text-align: center; }
+    .login-gate input {
+      width: 100%; padding: 1rem; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      color: #fff; font-family: inherit; font-size: 1rem; box-sizing: border-box; margin-bottom: 1rem;
+    }
+    .btn-admin {
+      background: #7c3aed; color: #fff; border: none; padding: 0.8rem 2rem;
+      border-radius: 8px; font-family: inherit; font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; transition: background 0.2s; letter-spacing: 1px;
+    }
+    .btn-admin:hover { background: #6d28d9; }
+    .btn-admin:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-approve { background: #16a34a; }
+    .btn-approve:hover { background: #15803d; }
+
+    /* Add Points Form */
+    .add-points-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 2rem; margin-bottom: 2.5rem;
+    }
+    .add-points-card h2 { color: #a78bfa; font-size: 1.2rem; margin: 0 0 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media(max-width:600px) { .form-row { grid-template-columns: 1fr; } }
+
+    .form-group label {
+      display: block; margin-bottom: 0.4rem; color: #a78bfa;
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .form-group select, .form-group input, .form-group textarea {
+      width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
+      color: #fff; font-family: inherit; font-size: 0.95rem; box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .form-group select option { background: #1a1a2e; color: #fff; }
+    .form-group select:focus, .form-group input:focus { outline: none; border-color: #a78bfa; }
+
+    .points-preview {
+      background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2);
+      border-radius: 8px; padding: 1rem 1.5rem; margin: 1rem 0;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .points-preview .pts-val { font-size: 2rem; font-weight: 800; color: #22c55e; }
+    .points-preview .pts-label { color: rgba(255,255,255,0.5); font-size: 0.85rem; }
+
+    /* History Table */
+    .history-table {
+      width: 100%; border-collapse: collapse;
+      background: rgba(255,255,255,0.02);
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .history-table th, .history-table td {
+      padding: 0.9rem 1rem; text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;
+    }
+    .history-table th { color: #a78bfa; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; background: rgba(255,255,255,0.02); }
+    .history-table td { color: rgba(255,255,255,0.8); }
+    .pts-badge { background: rgba(34,197,94,0.15); color: #22c55e; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 700; font-size: 0.85rem; }
+
+    .section-title { font-size: 1.1rem; color: #a78bfa; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin: 2rem 0 1rem; }
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: #16a34a; color: #fff; padding: 1rem 1.5rem; border-radius: 8px; font-weight: 600; display: none; z-index: 999; }
+    .toast.error { background: #dc2626; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN GATE -->
+<div id="loginGate">
+  <div class="login-gate">
+    <h2 style="color:#a78bfa; margin-bottom:0.5rem;">AAYAM '26 ADMIN</h2>
+    <p style="color:rgba(255,255,255,0.4); margin-bottom:2rem;">Referral Points Panel</p>
+    <input type="password" id="adminPwdInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter') doLogin()">
+    <button class="btn-admin" onclick="doLogin()" style="width:100%;">LOGIN</button>
+    <p id="loginErr" style="color:#ef4444; margin-top:1rem; display:none;">Incorrect password.</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
+  <nav class="admin-nav">
+    <div class="logo">AAYAM '26 ADMIN</div>
+    <div class="admin-nav-links">
+      <a href="admin-applications.html">Applications</a>
+      <a href="admin-submissions.html">Submissions</a>
+      <a href="admin-referrals.html" class="active">Referrals</a>
+      <a href="#" onclick="doLogout()">Logout</a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+    <h1 class="page-title">Referral Points</h1>
+    <p class="page-sub">Credit points for Unstop registrations • 20 pts per registration</p>
+
+    <!-- Add Points Form -->
+    <div class="add-points-card">
+      <h2>+ Add Referral Points</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Select Ambassador</label>
+          <select id="caSelect" onchange="updatePreview()">
+            <option value="">Loading ambassadors...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Number of Registrations</label>
+          <input type="number" id="regCount" min="1" max="500" placeholder="e.g. 12" oninput="updatePreview()">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Note (optional — e.g. "Batch 1 - March export")</label>
+        <input type="text" id="refNote" placeholder="Optional note for your records">
+      </div>
+
+      <div class="points-preview" id="pointsPreview" style="display:none;">
+        <div>
+          <div class="pts-val" id="previewPts">0</div>
+          <div class="pts-label">points to be added</div>
+        </div>
+        <div style="color:rgba(255,255,255,0.4); font-size:0.85rem;">
+          <span id="previewBreakdown"></span>
+        </div>
+      </div>
+
+      <button class="btn-admin btn-approve" id="addPtsBtn" onclick="addReferralPoints()">ADD POINTS</button>
+    </div>
+
+    <!-- Referral History -->
+    <div class="section-title">Referral History</div>
+    <div style="overflow-x:auto;">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Ambassador</th>
+            <th>CA Code</th>
+            <th>Registrations</th>
+            <th>Points Awarded</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody">
+          <tr><td colspan="6" style="text-align:center; color:rgba(255,255,255,0.3);">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let adminPwd    = "";
+  let caList      = [];
+  const PTS_PER   = 20;
+
+  function doLogin() {
+    const pwd = document.getElementById('adminPwdInput').value;
+    if (!pwd) return;
+    adminPwd = pwd;
+    // Verify by trying to fetch CA list
+    fetchCAs().then(ok => {
+      if (ok) {
+        sessionStorage.setItem('adminPwd', pwd);
+        document.getElementById('loginGate').style.display   = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        fetchHistory();
+      } else {
+        document.getElementById('loginErr').style.display = 'block';
+        adminPwd = "";
+      }
+    });
+  }
+
+  function doLogout() {
+    sessionStorage.removeItem('adminPwd');
+    location.reload();
+  }
+
+  // Auto-login if session exists
+  window.onload = () => {
+    const saved = sessionStorage.getItem('adminPwd');
+    if (saved) {
+      adminPwd = saved;
+      document.getElementById('adminPwdInput').value = saved;
+      fetchCAs().then(ok => {
+        if (ok) {
+          document.getElementById('loginGate').style.display   = 'none';
+          document.getElementById('mainContent').style.display = 'block';
+          fetchHistory();
+        } else {
+          sessionStorage.removeItem('adminPwd');
+          adminPwd = "";
+        }
+      });
+    }
+  };
+
+  async function fetchCAs() {
+    try {
+      const res = await fetch('/api/admin-applications-data', {
+        headers: { 'Authorization': adminPwd }
+      });
+      const data = await res.json();
+      if (!data.success) return false;
+
+      // Only approved CAs
+      caList = data.applications.filter(a => a.status === 'approved');
+      const sel = document.getElementById('caSelect');
+      sel.innerHTML = '<option value="">— Select Ambassador —</option>';
+      caList.forEach(ca => {
+        sel.innerHTML += `<option value="${ca.id}">${ca.caCode} — ${ca.fullname} (${ca.college})</option>`;
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function updatePreview() {
+    const count = Number(document.getElementById('regCount').value);
+    const caId  = document.getElementById('caSelect').value;
+    const prev  = document.getElementById('pointsPreview');
+
+    if (count > 0 && caId) {
+      const pts = count * PTS_PER;
+      document.getElementById('previewPts').textContent       = pts;
+      document.getElementById('previewBreakdown').textContent = `${count} registrations × ${PTS_PER} pts each`;
+      prev.style.display = 'flex';
+    } else {
+      prev.style.display = 'none';
+    }
+  }
+
+  async function addReferralPoints() {
+    const caId  = document.getElementById('caSelect').value;
+    const count = Number(document.getElementById('regCount').value);
+    const note  = document.getElementById('refNote').value.trim();
+
+    if (!caId)    return showToast('Please select an ambassador.', true);
+    if (!count || count < 1) return showToast('Please enter a valid registration count.', true);
+
+    const ca  = caList.find(c => c.id === caId);
+    if (!ca)  return showToast('Ambassador not found.', true);
+
+    const btn = document.getElementById('addPtsBtn');
+    btn.disabled    = true;
+    btn.textContent = 'ADDING...';
+
+    try {
+      const res = await fetch('/api/admin-add-referral-points', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': adminPwd },
+        body: JSON.stringify({
+          caDocId:           caId,
+          caCode:            ca.caCode,
+          caName:            ca.fullname,
+          caEmail:           ca.email,
+          registrationCount: count,
+          note,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        showToast(`✅ +${data.pointsAdded} pts added to ${ca.fullname}!`);
+        document.getElementById('regCount').value  = '';
+        document.getElementById('refNote').value   = '';
+        document.getElementById('caSelect').value  = '';
+        document.getElementById('pointsPreview').style.display = 'none';
+        fetchHistory();
+      } else {
+        showToast('Error: ' + data.error, true);
+      }
+    } catch (e) {
+      showToast('Network error. Try again.', true);
+    } finally {
+      btn.disabled    = false;
+      btn.textContent = 'ADD POINTS';
+    }
+  }
+
+  async function fetchHistory() {
+    try {
+      const res  = await fetch('/api/admin-referral-history', {
+        headers: { 'Authorization': adminPwd }
+      });
+      const data = await res.json();
+      const tbody = document.getElementById('historyBody');
+
+      if (!data.success || data.history.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:rgba(255,255,255,0.3);">No referral history yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = '';
+      data.history.forEach(r => {
+        const d = new Date(r.addedAt).toLocaleDateString('en-IN');
+        tbody.innerHTML += `
+          <tr>
+            <td>${d}</td>
+            <td><strong>${r.caName}</strong></td>
+            <td style="color:#a78bfa; font-family:monospace;">${r.caCode}</td>
+            <td>${r.registrationCount}</td>
+            <td><span class="pts-badge">+${r.pointsAwarded} pts</span></td>
+            <td style="color:rgba(255,255,255,0.4);">${r.note || '—'}</td>
+          </tr>
+        `;
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent   = msg;
+    t.className     = 'toast' + (isError ? ' error' : '');
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 3500);
+  }
+</script>
+</body>
+</html>

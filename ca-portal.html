@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CA Portal Login | Aayam</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        .login-wrapper {
+            max-width: 450px;
+            margin: 150px auto 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .login-card {
+            background: var(--bg-card-solid);
+            padding: 3rem 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-dim);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .login-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-dim);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+        }
+
+        .forgot-pwd {
+            display: block;
+            text-align: right;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .forgot-pwd:hover {
+            color: var(--accent);
+        }
+
+        .btn-login {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: none;
+        }
+
+        .auth-message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .auth-message.error {
+            color: #ef4444;
+        }
+
+        .auth-message.success {
+            color: #22c55e;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Global Space Background -->
+    <div id="global-space-bg"></div>
+
+    <nav class="reflect-nav" id="main-nav" style="background: rgba(8, 5, 16, 0.9);">
+        <div class="nav-left">
+            <a href="index.html" class="logo-text technex-logo" style="text-decoration:none;color:inherit;">AAYAM
+                '26</a>
+        </div>
+        <div class="nav-center">
+            <a href="home.html">Home</a>
+            <a href="events.html">Events</a>
+            <a href="sponsors.html">Sponsors</a>
+            <a href="team.html">Team</a>
+            <a href="ambassador.html">Ambassador</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-right">
+            <a href="ambassador-register.html" class="nav-cta border">APPLY CA</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+    <div class="mobile-menu-overlay">
+        <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+        <a href="home.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="sponsors.html">Sponsors</a>
+        <a href="team.html">Team</a>
+        <a href="ambassador.html">Ambassador</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="login-wrapper fade-in-section staggered-item">
+        <div class="login-card">
+            <h2>CA PORTAL</h2>
+            <p>Enter your credentials to access the dashboard</p>
+
+            <form id="caLoginForm" onsubmit="event.preventDefault(); handleLogin();">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="john@college.edu" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                    <a href="#" class="forgot-pwd" onclick="handleForgotPassword(event)">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-technex primary btn-login" id="loginBtn">LOG IN</button>
+                <div id="authMessage" class="auth-message"></div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="tech-footer">
+        <!-- Reusing standard footer -->
+        <div class="footer-bottom" style="border-top: none;">
+            <div class="copy" style="width:100%; text-align:center;">&copy; 2026 AAYAM &middot; NST</div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDK Modular / Compat -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Replace with your Firebase web config from Project Settings > General > Your Apps
+        const firebaseConfig = {
+            apiKey: "AIzaSyDA0a7Iw3H5AzA2U3SsFWWpfkt1VtJyNaA",
+            authDomain: "aayam-26.firebaseapp.com",
+            projectId: "aayam-26",
+            storageBucket: "aayam-26.firebasestorage.app",
+            messagingSenderId: "798872885476",
+            appId: "1:798872885476:web:6898cd5ae58faacdfef4f1"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Check if already logged in
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                window.location.href = "ca-dashboard.html";
+            }
+        });
+
+        function showMessage(msg, type) {
+            const msgEl = document.getElementById('authMessage');
+            msgEl.textContent = msg;
+            msgEl.className = 'auth-message ' + type;
+            msgEl.style.display = 'block';
+        }
+
+        async function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('loginBtn');
+
+            btn.disabled = true;
+            btn.textContent = 'LOGGING IN...';
+            showMessage('', '');
+
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                // The onAuthStateChanged will handle the redirect
+            } catch (error) {
+                let errorMsg = 'Failed to login.';
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMsg = 'Invalid email or password.';
+                } else {
+                    errorMsg = error.message;
+                }
+                showMessage(errorMsg, 'error');
+                btn.disabled = false;
+                btn.textContent = 'LOG IN';
+            }
+        }
+
+        async function handleForgotPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+
+            if (!email) {
+                showMessage('Please enter your email first to reset password.', 'error');
+                return;
+            }
+
+            try {
+                await auth.sendPasswordResetEmail(email);
+                showMessage('Password reset email sent. Check your inbox.', 'success');
+            } catch (error) {
+                showMessage(error.message, 'error');
+            }
+        }
+    </script>
+</body>
+
+</html>

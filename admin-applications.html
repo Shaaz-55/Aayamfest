@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - CA Applications | Aayam</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 120px auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .admin-login {
+            max-width: 400px;
+            margin: 100px auto;
+            background: var(--bg-card-solid);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-dim);
+            text-align: center;
+            display: none;
+        }
+
+        .admin-login.active {
+            display: block;
+        }
+
+        .admin-login input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-dim);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-dim);
+            padding-bottom: 1rem;
+        }
+
+        .filter-tab {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 4px;
+        }
+
+        .filter-tab.active {
+            color: var(--primary);
+            background: rgba(167, 139, 250, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card-solid);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-dim);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-dim);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: rgba(255,255,255,0.02);
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .status-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+        .status-approved { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-rejected { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .btn-action {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action:hover { opacity: 0.8; }
+        .btn-approve { background: #22c55e; color: #000; }
+        .btn-reject { background: transparent; border: 1px solid #ef4444; color: #ef4444; }
+
+        .loading-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        td.why-col {
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Global Space Background -->
+    <div id="global-space-bg"></div>
+
+    <nav class="reflect-nav" id="main-nav" style="background: rgba(8, 5, 16, 0.9);">
+        <div class="nav-left">
+            <a href="index.html" class="logo-text technex-logo" style="text-decoration:none;color:inherit;">AAYAM '26 ADMIN</a>
+        </div>
+        <div class="nav-right" id="nav-logout" style="display:none;">
+            <button class="nav-cta border" onclick="logoutAdmin()">LOGOUT</button>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <!-- LOGIN SECTION -->
+        <div id="loginSection" class="admin-login active">
+            <h2 class="section-heading" style="font-size: 1.8rem;">Admin Access</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Enter admin password to review CA applications.</p>
+            <input type="password" id="adminPwd" placeholder="Password...">
+            <button class="btn-technex primary" style="width: 100%; justify-content:center;" onclick="loginAdmin()">LOGIN</button>
+            <p id="loginError" style="color: #ef4444; margin-top: 1rem; display: none; font-size: 0.9rem;">Incorrect password.</p>
+        </div>
+
+        <!-- CONTENT SECTION -->
+        <div id="contentSection" class="admin-content">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+                <div>
+                    <h1 class="page-title" style="font-size: 2.5rem; margin-bottom: 0;">CA APPLICATIONS</h1>
+                    <p class="page-subtitle" style="margin-top: 0.5rem;">Review and manage campus ambassador registrations</p>
+                </div>
+                <div>
+                    <a href="admin-submissions.html" class="btn-technex outline">Review Task Submissions &rarr;</a>
+                </div>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="setFilter('all')">All</button>
+                <button class="filter-tab" onclick="setFilter('pending')">Pending</button>
+                <button class="filter-tab" onclick="setFilter('approved')">Approved</button>
+                <button class="filter-tab" onclick="setFilter('rejected')">Rejected</button>
+            </div>
+
+            <div id="loading" class="loading-state">Loading applications...</div>
+            <div id="errorMsg" class="loading-state" style="display:none; color: #ef4444;"></div>
+
+            <table id="appsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>College</th>
+                        <th>Course (Yr)</th>
+                        <th>City</th>
+                        <th>Why</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let adminPassword = sessionStorage.getItem('adminPwd') || '';
+        let allApplications = [];
+        let currentFilter = 'all';
+
+        if (adminPassword) {
+            document.getElementById('loginSection').classList.remove('active');
+            document.getElementById('contentSection').classList.add('active');
+            document.getElementById('nav-logout').style.display = 'block';
+            fetchApplications();
+        }
+
+        async function loginAdmin() {
+            const pwd = document.getElementById('adminPwd').value;
+            // Validate by trying to fetch data
+            document.getElementById('loginError').style.display = 'none';
+            adminPassword = pwd;
+            
+            try {
+                const res = await fetch('/api/admin-applications-data', {
+                    headers: { 'Authorization': adminPassword }
+                });
+                if (res.ok) {
+                    sessionStorage.setItem('adminPwd', adminPassword);
+                    document.getElementById('loginSection').classList.remove('active');
+                    document.getElementById('contentSection').classList.add('active');
+                    document.getElementById('nav-logout').style.display = 'block';
+                    fetchApplications();
+                } else {
+                    adminPassword = '';
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('adminPwd');
+            window.location.reload();
+        }
+
+        async function fetchApplications() {
+            const loading = document.getElementById('loading');
+            const table = document.getElementById('appsTable');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            loading.style.display = 'block';
+            table.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/admin-applications-data', {
+                    headers: { 'Authorization': adminPassword }
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    allApplications = data.applications;
+                    renderTable();
+                    loading.style.display = 'none';
+                    table.style.display = 'table';
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (err) {
+                loading.style.display = 'none';
+                errorMsg.textContent = 'Failed to load applications: ' + err.message;
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            const filtered = allApplications.filter(app => {
+                const stat = app.status || 'pending';
+                if (currentFilter === 'all') return true;
+                return stat === currentFilter;
+            });
+
+            filtered.forEach(app => {
+                const tr = document.createElement('tr');
+                const stat = app.status || 'pending';
+                
+                const date = new Date(app.submittedAt).toLocaleDateString('en-GB');
+                
+                tr.innerHTML = `
+                    <td>${date}</td>
+                    <td><strong>${app.fullname}</strong></td>
+                    <td>${app.email}</td>
+                    <td>${app.college}</td>
+                    <td>${app.course} (${app.year})</td>
+                    <td>${app.city}</td>
+                    <td class="why-col" title="${app.why}">${app.why}</td>
+                    <td><span class="status-badge status-${stat}">${stat}</span></td>
+                    <td>
+                        ${stat === 'pending' ? `
+                            <button class="btn-action btn-approve" onclick="handleAction('${app.id}', 'approve', '${app.email}', '${app.fullname}', '${app.college}')">Approve</button>
+                            <button class="btn-action btn-reject" onclick="handleAction('${app.id}', 'reject', '${app.email}', '${app.fullname}', '${app.college}')">Reject</button>
+                        ` : `${app.caCode ? '<span style="font-size:0.8rem;color:var(--text-muted);">'+app.caCode+'</span>' : '-'}`}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding: 2rem;">No applications found in this view.</td></tr>';
+            }
+        }
+
+        async function handleAction(docId, action, email, fullname, college) {
+            if (!confirm(`Are you sure you want to ${action} ${fullname}?`)) return;
+
+            try {
+                const res = await fetch('/api/admin-action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': adminPassword
+                    },
+                    body: JSON.stringify({ action, docId, email, fullname, college })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert(`Successfully ${action}d ${fullname}`);
+                    fetchApplications(); // refresh data
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error during action');
+            }
+        }
+    </script>
+</body>
+</html>

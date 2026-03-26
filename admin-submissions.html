@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - CA Submissions | Aayam</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 120px auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .admin-login {
+            max-width: 400px;
+            margin: 100px auto;
+            background: var(--bg-card-solid);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-dim);
+            text-align: center;
+            display: none;
+        }
+
+        .admin-login.active { display: block; }
+
+        .admin-login input {
+            width: 100%;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-dim);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .admin-content { display: none; }
+        .admin-content.active { display: block; }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-dim);
+            padding-bottom: 1rem;
+        }
+
+        .filter-tab {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 4px;
+        }
+
+        .filter-tab.active {
+            color: var(--primary);
+            background: rgba(167, 139, 250, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card-solid);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-dim);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-dim);
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        th {
+            background: rgba(255,255,255,0.02);
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        tr:hover { background: rgba(255,255,255,0.02); }
+
+        .status-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+        .status-approved { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .status-rejected { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+        .btn-action {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action:hover { opacity: 0.8; }
+        .btn-approve { background: #22c55e; color: #000; }
+        .btn-reject { background: transparent; border: 1px solid #ef4444; color: #ef4444; }
+
+        .loading-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .edit-input {
+            width: 60px;
+            padding: 0.3rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border-dim);
+            border-radius: 4px;
+            color: #fff;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .note-input {
+            width: 150px;
+            padding: 0.4rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border-dim);
+            border-radius: 4px;
+            color: #fff;
+            font-size: 0.8rem;
+            font-family: inherit;
+        }
+
+        .submission-preview {
+            max-width: 150px;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--border-dim);
+            cursor: pointer;
+        }
+        
+        .submission-link {
+            color: var(--accent);
+            text-decoration: underline;
+            word-break: break-all;
+            display: inline-block;
+            max-width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="global-space-bg"></div>
+
+    <nav class="reflect-nav" id="main-nav" style="background: rgba(8, 5, 16, 0.9);">
+        <div class="nav-left">
+            <a href="index.html" class="logo-text technex-logo" style="text-decoration:none;color:inherit;">AAYAM '26 ADMIN</a>
+        </div>
+        <div class="nav-right" id="nav-logout" style="display:none;">
+            <button class="nav-cta border" onclick="logoutAdmin()">LOGOUT</button>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <!-- LOGIN SECTION -->
+        <div id="loginSection" class="admin-login active">
+            <h2 class="section-heading" style="font-size: 1.8rem;">Admin Access</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">Enter admin password to review CA submissions.</p>
+            <input type="password" id="adminPwd" placeholder="Password...">
+            <button class="btn-technex primary" style="width: 100%; justify-content:center;" onclick="loginAdmin()">LOGIN</button>
+            <p id="loginError" style="color: #ef4444; margin-top: 1rem; display: none; font-size: 0.9rem;">Incorrect password.</p>
+        </div>
+
+        <!-- CONTENT SECTION -->
+        <div id="contentSection" class="admin-content">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+                <div>
+                    <h1 class="page-title" style="font-size: 2.5rem; margin-bottom: 0;">TASK SUBMISSIONS</h1>
+                    <p class="page-subtitle" style="margin-top: 0.5rem;">Review, score, and evaluate ambassador tasks</p>
+                </div>
+                <div>
+                    <a href="admin-applications.html" class="btn-technex outline">&larr; Back to Applications</a>
+                </div>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="setFilter('all')">All</button>
+                <button class="filter-tab" onclick="setFilter('pending')">Pending</button>
+                <button class="filter-tab" onclick="setFilter('approved')">Approved</button>
+                <button class="filter-tab" onclick="setFilter('rejected')">Rejected</button>
+            </div>
+
+            <div id="loading" class="loading-state">Loading submissions...</div>
+            <div id="errorMsg" class="loading-state" style="display:none; color: #ef4444;"></div>
+
+            <table id="subsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Ambassador</th>
+                        <th>Task</th>
+                        <th>Preview</th>
+                        <th>Points</th>
+                        <th>Status</th>
+                        <th>Note/Reason</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Image Modal for full view preview -->
+    <div id="imgModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:10000; justify-content:center; align-items:center; flex-direction:column;">
+        <span onclick="document.getElementById('imgModal').style.display='none'" style="color:#fff; font-size:2rem; position:absolute; top:20px; right:30px; cursor:pointer;">&times;</span>
+        <img id="modalImg" style="max-width:90%; max-height:85vh; border-radius:8px;">
+    </div>
+
+    <script>
+        let adminPassword = sessionStorage.getItem('adminPwd') || '';
+        let allSubmissions = [];
+        let currentFilter = 'all';
+
+        if (adminPassword) {
+            document.getElementById('loginSection').classList.remove('active');
+            document.getElementById('contentSection').classList.add('active');
+            document.getElementById('nav-logout').style.display = 'block';
+            fetchSubmissions();
+        }
+
+        async function loginAdmin() {
+            const pwd = document.getElementById('adminPwd').value;
+            document.getElementById('loginError').style.display = 'none';
+            adminPassword = pwd;
+            
+            try {
+                const res = await fetch('/api/admin-submissions-data', {
+                    headers: { 'Authorization': adminPassword }
+                });
+                if (res.ok) {
+                    sessionStorage.setItem('adminPwd', adminPassword);
+                    document.getElementById('loginSection').classList.remove('active');
+                    document.getElementById('contentSection').classList.add('active');
+                    document.getElementById('nav-logout').style.display = 'block';
+                    fetchSubmissions();
+                } else {
+                    adminPassword = '';
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('adminPwd');
+            window.location.reload();
+        }
+
+        async function fetchSubmissions() {
+            const loading = document.getElementById('loading');
+            const table = document.getElementById('subsTable');
+            const errorMsg = document.getElementById('errorMsg');
+            
+            loading.style.display = 'block';
+            table.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            try {
+                const res = await fetch('/api/admin-submissions-data', {
+                    headers: { 'Authorization': adminPassword }
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    allSubmissions = data.submissions;
+                    renderTable();
+                    loading.style.display = 'none';
+                    table.style.display = 'table';
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (err) {
+                loading.style.display = 'none';
+                errorMsg.textContent = 'Failed to load submissions: ' + err.message;
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTable();
+        }
+
+        function showImage(src) {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('imgModal').style.display = 'flex';
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            const filtered = allSubmissions.filter(sub => {
+                const stat = sub.status || 'pending';
+                if (currentFilter === 'all') return true;
+                return stat === currentFilter;
+            });
+
+            filtered.forEach((sub, i) => {
+                const tr = document.createElement('tr');
+                const stat = sub.status || 'pending';
+                const date = new Date(sub.submittedAt).toLocaleDateString('en-GB');
+
+                // Determine preview type (base64 image vs url)
+                let previewHTML = '';
+                if (sub.submissionData.startsWith('data:image')) {
+                    previewHTML = `<img src="${sub.submissionData}" class="submission-preview" onclick="showImage('${sub.submissionData}')">`;
+                } else if (sub.submissionData.startsWith('http')) {
+                    previewHTML = `<a href="${sub.submissionData}" target="_blank" class="submission-link">${sub.submissionData}</a>`;
+                } else {
+                    previewHTML = 'Invalid Data';
+                }
+
+                const ptsId = 'pts_' + sub.id;
+                const noteId = 'note_' + sub.id;
+
+                let actionHTML = '';
+                let pointsHTML = '';
+                let noteHTML = '';
+
+                if (stat === 'pending') {
+                    pointsHTML = `<input type="number" id="${ptsId}" class="edit-input" value="${sub.points}">`;
+                    noteHTML = `<input type="text" id="${noteId}" class="note-input" placeholder="Optional/Reason">`;
+                    actionHTML = `
+                        <button class="btn-action btn-approve" onclick="handleAction('${sub.id}', 'approve', '${sub.caDocId}', '${sub.caEmail}', '${sub.caName}', '${sub.taskType}')">Approve</button><br>
+                        <button class="btn-action btn-reject" onclick="handleAction('${sub.id}', 'reject', '${sub.caDocId}', '${sub.caEmail}', '${sub.caName}', '${sub.taskType}')">Reject</button>
+                    `;
+                } else {
+                    pointsHTML = sub.pointsAwarded !== undefined ? sub.pointsAwarded : sub.points;
+                    noteHTML = sub.adminNote || '-';
+                    actionHTML = `<span style="color:var(--text-muted); font-size:0.8rem;">Reviewed</span>`;
+                }
+                
+                tr.innerHTML = `
+                    <td>${date}</td>
+                    <td><strong>${sub.caName}</strong><br><span style="font-size:0.8rem;color:var(--text-muted);">${sub.caCode}</span></td>
+                    <td>${sub.taskType}</td>
+                    <td>${previewHTML}</td>
+                    <td>${pointsHTML}</td>
+                    <td><span class="status-badge status-${stat}">${stat}</span></td>
+                    <td>${noteHTML}</td>
+                    <td>${actionHTML}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding: 2rem;">No submissions found.</td></tr>';
+            }
+        }
+
+        async function handleAction(submissionDocId, action, caDocId, caEmail, caName, taskType) {
+            const ptsElem = document.getElementById('pts_' + submissionDocId);
+            const noteElem = document.getElementById('note_' + submissionDocId);
+
+            const points = ptsElem ? ptsElem.value : 0;
+            const adminNote = noteElem ? noteElem.value : '';
+
+            if (action === 'reject' && !adminNote.trim()) {
+                alert('Please provide a reason/note for rejecting the task.');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to ${action} this ${taskType} from ${caName}?`)) return;
+
+            try {
+                const res = await fetch('/api/admin-submission-action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': adminPassword
+                    },
+                    body: JSON.stringify({ action, submissionDocId, caDocId, caEmail, caName, taskType, points, adminNote })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert(`Successfully ${action}d task!`);
+                    fetchSubmissions();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error during action');
+            }
+        }
+    </script>
+</body>
+</html>
