@@ -4,16 +4,16 @@
 // ============================================================
 
 const { initializeApp, cert, getApps } = require("firebase-admin/app");
-const { getFirestore }                 = require("firebase-admin/firestore");
-const { getAuth }                      = require("firebase-admin/auth");
-const nodemailer                       = require("nodemailer");
+const { getFirestore } = require("firebase-admin/firestore");
+const { getAuth } = require("firebase-admin/auth");
+const nodemailer = require("nodemailer");
 
 if (!getApps().length) {
   initializeApp({
     credential: cert({
-      projectId:   process.env.FIREBASE_PROJECT_ID,
+      projectId: process.env.FIREBASE_PROJECT_ID,
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-      privateKey:  process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
     }),
   });
 }
@@ -112,8 +112,8 @@ module.exports = async function handler(req, res) {
 
 async function sendWelcomeEmail(data) {
   const transporter = nodemailer.createTransport({
-    host:   process.env.SMTP_HOST,
-    port:   Number(process.env.SMTP_PORT) || 587,
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 587,
     secure: false,
     auth: {
       user: process.env.SMTP_USER,
@@ -142,7 +142,7 @@ async function sendWelcomeEmail(data) {
         <p><a href="${data.resetLink}" style="display:inline-block; padding: 10px 20px; background-color: #7c3aed; color: #ffffff; text-decoration: none; border-radius: 4px;">Set Password</a></p>
         
         <p>2. <strong>Login to the CA Portal:</strong> After setting your password, use your email and password to log in.</p>
-        <p><a href="https://aayamfest.github.io/ca-portal.html" style="color: #7c3aed;">Go to CA Portal</a> (Replace with actual deployment link if different)</p>
+        <p><a href="https://aayamfest-theta.vercel.app/ca-portal.html" style="color: #7c3aed;">Go to CA Portal</a> (Replace with actual deployment link if different)</p>
 
         <h3>Tasks to Earn Points:</h3>
         <ul style="color: #555;">
@@ -161,18 +161,18 @@ async function sendWelcomeEmail(data) {
   `;
 
   await transporter.sendMail({
-    from:    `"Team AAYAM '26" <${process.env.SMTP_USER}>`,
-    to:      data.email,
+    from: `"Team AAYAM '26" <${process.env.SMTP_USER}>`,
+    to: data.email,
     subject: "🎉 You're Selected! AAYAM '26 Campus Ambassador",
-    html:    htmlBody,
+    html: htmlBody,
     replyTo: process.env.SMTP_USER,
   });
 }
 
 async function sendRejectionEmail(data) {
   const transporter = nodemailer.createTransport({
-    host:   process.env.SMTP_HOST,
-    port:   Number(process.env.SMTP_PORT) || 587,
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 587,
     secure: false,
     auth: {
       user: process.env.SMTP_USER,
@@ -196,10 +196,10 @@ async function sendRejectionEmail(data) {
   `;
 
   await transporter.sendMail({
-    from:    `"Team AAYAM '26" <${process.env.SMTP_USER}>`,
-    to:      data.email,
+    from: `"Team AAYAM '26" <${process.env.SMTP_USER}>`,
+    to: data.email,
     subject: "AAYAM '26 — Campus Ambassador Application Status",
-    html:    htmlBody,
+    html: htmlBody,
     replyTo: process.env.SMTP_USER,
   });
 }
